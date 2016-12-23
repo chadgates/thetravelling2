@@ -95,10 +95,10 @@
 				<div class="col-xs-10 text-right menu-1">
 					<ul>
 						<li {% block nav_home %}{% endblock %}><a href="/">Home</a></li>
-						<li {% block nav_ourday %}{% endblock %}><a href="ourday.html">Our day</a></li>
-						<li {% block nav_ourwish %}{% endblock %}><a href="ourwish.html">Our wish</a></li>
-						<li {% block nav_accommodation %}{% endblock %}><a href="accomodation.html">Accommodation</a></li>
-						<li {% block nav_goodtoknow %}{% endblock %}><a href="goodtoknow.html">Good to know</a></li>
+						<li {% block nav_ourday %}{% endblock %}><a href="/ourday/">Our day</a></li>
+						<li {% block nav_ourwish %}{% endblock %}><a href="/ourwish">Our wish</a></li>
+						<li {% block nav_accommodation %}{% endblock %}><a href="/accommodation">Accommodation</a></li>
+						<li {% block nav_goodtoknow %}{% endblock %}><a href="/goodtoknow">Good to know</a></li>
 						<li {% block nav_contact %}{% endblock %}><a href="contact.html">Contact</a></li>
                         {% if request.user.is_authenticated %}
                             <li {% block nav_profile %}{% endblock %}><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
@@ -139,8 +139,8 @@
 			<div class="row copyright">
 				<div class="col-md-12 text-center">
 					<p>
-						<small class="block">&copy; 2016 Shipping Systems GmbH. All Rights Reserved.</small>
-						<small class="block">This page uses templates from  <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a></small>
+						<small class="block">&copy; 2016 Sibylle Widmer & Marco Zurbriggen. All Rights Reserved.</small>
+						<small class="block">Page adaptation by WL. This page uses templates from  <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a></small>
 					</p>
 					<p>
 						<ul class="fh5co-social-icons">

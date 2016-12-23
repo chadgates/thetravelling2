@@ -1825,3 +1825,38 @@ form {
 		opacity: 0;
 	}
 }
+
+.theme-primary {
+  background: $brand-primary;
+}
+.theme-secondary {
+  background: $brand-secondary;
+}
+.theme-white {
+  background: $brand-white;
+}
+.theme-black {
+  background: $brand-black;
+}
+.theme-darker {
+  background: $brand-darker;
+}
+.theme-gray {
+  background: $brand-gray;
+}
+.theme-lighter {
+  background: $brand-lighter;
+}
+.theme-body-color {
+  background: $brand-body-color;
+}
+.theme-selection-color {
+  background: $brand-selection-color;
+}
+.theme-overlay-color {
+  background: $brand-overlay-color;
+}
+.theme-bg-color {
+  background: $brand-bg-color;
+}
+

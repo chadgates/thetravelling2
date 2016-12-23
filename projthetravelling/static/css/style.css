@@ -1399,3 +1399,36 @@ form label {
 
 .js .animate-box {
   opacity: 0; }
+
+.theme-primary {
+  background: #F14E95; }
+
+.theme-secondary {
+  background: #118DF0; }
+
+.theme-white {
+  background: #fff; }
+
+.theme-black {
+  background: #000; }
+
+.theme-darker {
+  background: #444; }
+
+.theme-gray {
+  background: #ccc; }
+
+.theme-lighter {
+  background: #e9e9e9; }
+
+.theme-body-color {
+  background: #818892; }
+
+.theme-selection-color {
+  background: #f9f6f0; }
+
+.theme-overlay-color {
+  background: #3b3d40; }
+
+.theme-bg-color {
+  background: #fff; }

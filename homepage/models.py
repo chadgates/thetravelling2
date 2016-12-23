@@ -59,6 +59,49 @@ class CoupleBlock(blocks.StructBlock):
         label = 'Couple Block'
 
 
+class GoogleMapBlock(blocks.StructBlock):
+    map_width = blocks.CharBlock(required=True, max_length=4, default="600")
+    map_height = blocks.CharBlock(required=True, max_length=4, default="450")
+    map_params = blocks.CharBlock(required=True, max_length=300, help_text="No spaces, add + instead")
+
+    class Meta:
+        template = 'homepage/google_map_block.html'
+        icon = 'cogs'
+        label = 'Google Map'
+
+
+class TwoColumnBlock(blocks.StructBlock):
+    COLOUR_CHOICES = (
+        ('theme-white', 'White'),
+        ('theme-black', 'Black'),
+        ('theme-darker', 'Dark Gray'),
+        ('theme-body-color', 'Body Color'),
+        ('theme-primary', 'Primary Color'),
+        ('theme-secondary', 'Secondary Color'),
+    )
+
+
+    background = blocks.ChoiceBlock(choices=COLOUR_CHOICES, default="white")
+    left_column = blocks.StreamBlock([
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('google_map', GoogleMapBlock()),
+    ], icon='arrow-left', label='Left column content')
+
+    right_column = blocks.StreamBlock([
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('google_map', GoogleMapBlock()),
+    ], icon='arrow-right', label='Right column content')
+
+    class Meta:
+        template = 'homepage/two_column_block.html'
+        icon = 'placeholder'
+        label = 'Two Columns'
+
+
 class ImpressumPage(Page):
     body = RichTextField()
 
@@ -70,6 +113,9 @@ class ImpressumPage(Page):
 class BlockPage(Page):
     body = StreamField(
         [('CoupleBlock', CoupleBlock()),
+         ('TwoColumnBlock', TwoColumnBlock()),
+         ('GoogleMapBlock', GoogleMapBlock()),
+         ('RichTextBlock', blocks.RichTextBlock()),
          ], default="")
 
     content_panels = Page.content_panels + [
@@ -262,5 +308,59 @@ class HomePage(Page):
         ]),
         ImageChooserPanel('background'),
         DocumentChooserPanel('icsfile'),
+        StreamFieldPanel('body'),
+    ]
+
+
+class OurDayPage(Page):
+    body = StreamField(
+        [
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('TwoColumnBlock', TwoColumnBlock()),
+        ], default = "")
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
+
+
+class OurWishPage(Page):
+    body = StreamField(
+        [
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('TwoColumnBlock', TwoColumnBlock()),
+        ], default = "")
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
+
+class AccommodationPage(Page):
+    body = StreamField(
+        [
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('TwoColumnBlock', TwoColumnBlock()),
+        ], default = "")
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
+
+class GoodToKnowPage(Page):
+    body = StreamField(
+        [
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('TwoColumnBlock', TwoColumnBlock()),
+        ], default = "")
+
+    content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
     ]
