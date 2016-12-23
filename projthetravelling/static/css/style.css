@@ -261,13 +261,13 @@ h1, h2, h3, h4, h5, h6, figure {
         .fh5co-cover.fh5co-cover-sm .display-tc {
           height: 400px; } }
   .fh5co-cover.fh5co-cover-min {
-    height: 90px; }
+    height: 100px; }
     @media screen and (max-width: 768px) {
       .fh5co-cover.fh5co-cover-min {
-        height: 90px; } }
+        height: 100px; } }
     .fh5co-cover.fh5co-cover-min .display-t,
     .fh5co-cover.fh5co-cover-min .display-tc {
-      height: 90px;
+      height: 100px;
       display: table;
       width: 100%; }
       @media screen and (max-width: 768px) {
