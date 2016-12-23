@@ -11,14 +11,14 @@
 .navbar {
   border-radius: 0px; }
 
-@media (max-width: 47.9em) {
+@media (max-width: 61.9em) {
   .navbar-nav .nav-item {
     display: inline-block;
     float: none;
     width: 100%; }
   .navbar-nav .nav-item + .nav-item {
     margin-left: 0; }
-  .nav.navbar-nav.pull-xs-right {
+  .nav.navbar-nav.float-xs-right {
     float: none !important; } }
 
 [hidden][style="display: block;"] {

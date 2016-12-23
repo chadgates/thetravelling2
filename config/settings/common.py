@@ -40,6 +40,7 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+
 )
 
 # Apps specific for this project go here.
@@ -47,6 +48,20 @@ LOCAL_APPS = (
     # custom users app
     'projthetravelling.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    'homepage',
+    'wagtail.wagtailforms',  # wagtail
+    'wagtail.wagtailredirects',  # wagtail
+    'wagtail.wagtailembeds',  # wagtail
+    'wagtail.wagtailsites',  # wagtail
+    'wagtail.wagtailusers',  # wagtail
+    'wagtail.wagtailsnippets',  # wagtail
+    'wagtail.wagtaildocs',  # wagtail
+    'wagtail.wagtailimages',  # wagtail
+    'wagtail.wagtailsearch',  # wagtail
+    'wagtail.wagtailadmin',  # wagtail
+    'wagtail.wagtailcore',  # wagtail
+    'modelcluster',  # wagtail
+    'taggit',  # wagtail
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -62,6 +77,8 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
 # MIGRATIONS CONFIGURATION
@@ -252,3 +269,4 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+WAGTAIL_SITE_NAME = 'The travelling 2'

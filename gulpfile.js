@@ -57,6 +57,20 @@ gulp.task('styles', function() {
     .pipe(gulp.dest(paths.css));
 });
 
+// Styles autoprefixing and minification
+gulp.task('styles2', function() {
+  return gulp.src(paths.sass + '/style.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(plumber()) // Checks for errors
+    .pipe(autoprefixer({browsers: ['last 2 version']})) // Adds vendor prefixes
+    .pipe(pixrem())  // add fallbacks for rem units
+    .pipe(gulp.dest(paths.css))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(cssnano()) // Minifies the result
+    .pipe(gulp.dest(paths.css));
+});
+
+
 // Javascript minification
 gulp.task('scripts', function() {
   return gulp.src(paths.js + '/project.js')
@@ -109,7 +123,7 @@ gulp.task('browserSync', function() {
 
 // Default task
 gulp.task('default', function() {
-    runSequence(['styles', 'scripts', 'imgCompression'], 'runMailhog' , 'runServer', 'browserSync');
+    runSequence(['styles', 'styles2', 'scripts', 'imgCompression'], 'runMailhog' , 'runServer', 'browserSync');
 });
 
 ////////////////////////////////

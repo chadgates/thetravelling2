@@ -19,3 +19,20 @@ Issues with the above approach:
 4. Undocumented: No mention in the documentation, or it's too hard for me to find
 */
 $('.form-group').removeClass('row');
+
+/* Open when someone clicks on the span element */
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+
+document.querySelector( "#nav-toggle" )
+  .addEventListener( "click", function() {
+    this.classList.toggle( "active" );
+  });
+
+

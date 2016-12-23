@@ -1,0 +1,35 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+    <div id="fh5co-couple">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
+					<h2>{{ value.maintitle }}</h2>
+					<h3>{{ value.subtitle }}</h3>
+					<p>{{ value.headline }}</p>
+				</div>
+			</div>
+			<div class="couple-wrap animate-box">
+				<div class="couple-half">
+					<div class="groom">
+                        {% image value.groomphoto fill-180x180 alt="groom" class="img-responsive" %}
+					</div>
+					<div class="desc-groom">
+						<h3>{{ value.groomame }}</h3>
+						<p>{{ value.groomtext }}</p>
+					</div>
+				</div>
+				<p class="heart text-center"><i class="icon-heart2"></i></p>
+				<div class="couple-half">
+					<div class="bride">
+                        {% image value.bridephoto fill-180x180 alt="bride" class="img-responsive" %}
+					</div>
+					<div class="desc-bride">
+						<h3>{{ value.bridename }}</h3>
+						<p>{{ value.bridetext }}</p>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>

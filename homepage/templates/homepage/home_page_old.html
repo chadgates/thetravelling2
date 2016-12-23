@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <style>
+        .myElement{background:url("{% static 'images/background-1633x1080-72.jpg' %}") no-repeat fixed center top}
+        .home-headline{
+            font-family: 'Open Sans';
+	        font-size: 48px;
+            color: whitesmoke;
+            text-align: center;}
+        .home-sub{
+            font-family: 'Open Sans';
+	        font-size: 24px;
+            color: whitesmoke;
+            text-align: center;}
+        .home-img{
+            text-align: center;
+        }
+        .hr20 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            }
+        .hr60 {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            }
+        .hr100 {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            }
+        .hr140 {
+            margin-top: 70px;
+            margin-bottom: 70px;
+            }
+
+    ul.share-buttons{
+  list-style: none;
+  padding: 0;
+}
+
+ul.share-buttons li{
+  display: inline;
+}
+    </style>
+
+{% endblock %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+
+
+    <div class="myElement container-fluid" style="background-color:#2c2729">
+
+             <section>
+                 <span class="home-headline">
+                     <p>Sibylle & Marco</p>
+                 </span>
+                 <div class="hr60"></div>
+                 <p class="home-img"><img src="{% static 'images/forkspoon.png' %}" width="164" height="222" alt="logo_transparent"></p>
+                <div class="hr60"></div>
+                 <span class="home-sub"><p>The world is their oyster</p>
+                     <div class="hr60"></div>
+                 </span>
+                 <span class="home-sub"><p>
+                     <a class="btn btn-primary" role="button" href="/km">Kilometer spenden</a>
+                     <a class="btn btn-secondary-outline" role="button" href="#content">Program</a>
+                </span>
+                 <div class="hr140"></div>
+             </section>
+    </div>
+    <div class="container" id="content">
+    {{ page.body }}
+    </div>
+    <div class="container">
+        <ul class="share-buttons">
+          <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.loorechoepf.com&t=Loorechoepf" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+          <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fwww.loorechoepf.com&text=Loorechoepf:%20http%3A%2F%2Fwww.loorechoepf.com" target="_blank" title="Tweet"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+          <li><a href="https://plus.google.com/share?url=http%3A%2F%2Fwww.loorechoepf.com" target="_blank" title="Share on Google+"><i class="fa fa-google-plus-square fa-2x"></i></a></li>
+          <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fwww.loorechoepf.com&title=Loorechoepf&summary=Kochclub%20Loorechoepf%2C%20monatlich%20pfiffige%20Rezepte&source=http%3A%2F%2Fwww.loorechoepf.com" target="_blank" title="Share on LinkedIn"><i class="fa fa-linkedin-square fa-2x"></i></a></li>
+          <li><a href="mailto:?subject=Loorechoepf&body=Kochclub%20Loorechoepf%2C%20monatlich%20pfiffige%20Rezepte:%20http%3A%2F%2Fwww.loorechoepf.com" target="_blank" title="Email"><i class="fa fa-envelope-square fa-2x"></i></a></li>
+        </ul>
+    </div>
+
+
+{% endblock %}
