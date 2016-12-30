@@ -1,0 +1,16 @@
+{% load wagtailimages_tags %}
+
+{% if value.bg_gray %}<div class="fh5co-section-gray">{% endif %}
+<div class="overlay"></div>
+{% if not value.endtoend %}<div class="container">{% endif %}
+    <div class="row">
+        <div class="col-md-12 col-md-offset-0 animate-box">
+    {% if value.width == 'original' %}{% image value.image original %}{% endif %}
+    {% if value.width == '1920' %}{% image value.image width-1920 %}{% endif %}
+    {% if value.width == '800' %}{% image value.image width-800 %}{% endif %}
+    {% if value.width == '640' %}{% image value.image width-640 %}{% endif %}
+    {% if value.width == '400' %}{% image value.image width-400 %}{% endif %}
+        </div>
+    </div>
+{% if not value.endtoend %}</div>{% endif %}
+{% if value.bg_gray %}</div>{% endif %}

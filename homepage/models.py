@@ -39,6 +39,46 @@ class FormPage(WagtailCaptchaEmailForm):
         ], "Email")
     ]
 
+
+class MainTitleBlock(blocks.StructBlock):
+    bg_gray = blocks.BooleanBlock(required=False, help_text="Select if background should by gray")
+    maintitle = blocks.CharBlock()
+
+    class Meta:
+        template = 'homepage/main_title_block.html'
+        icon = 'placeholder'
+        label = 'MainTitle'
+
+
+class ParagraphBlock(blocks.StructBlock):
+    bg_gray = blocks.BooleanBlock(required=False, help_text="Select if background should by gray")
+    paragraph = blocks.RichTextBlock()
+
+    class Meta:
+        template = 'homepage/paragraph_block.html'
+        icon = 'placeholder'
+        label = 'Paragraph'
+
+
+class ImageBlock(blocks.StructBlock):
+    WIDTH_CHOICES = (
+        ('original', 'original'),
+        ('1920', '1920'),
+        ('800', '800'),
+        ('640', '640'),
+        ('400', '400'),
+    )
+    bg_gray = blocks.BooleanBlock(required=False, help_text="Select if background should by gray")
+    image = ImageChooserBlock()
+    endtoend = blocks.BooleanBlock()
+    width = blocks.ChoiceBlock(choices=WIDTH_CHOICES, default="800")
+
+    class Meta:
+        template = 'homepage/image_block.html'
+        icon = 'placeholder'
+        label = 'Image'
+
+
 class TimeLineEntryBlock(blocks.StructBlock):
     headline = blocks.CharBlock()
     date = blocks.CharBlock()
@@ -51,6 +91,7 @@ class TimeLineEntryBlock(blocks.StructBlock):
         label = 'TimelineEntry'
 
 class TimeLineBlock(blocks.StructBlock):
+    bg_gray = blocks.BooleanBlock(required=False, help_text="Select if background should by gray")
     headline = blocks.CharBlock()
     maintitle = blocks.CharBlock()
     text = blocks.TextBlock()
@@ -63,8 +104,29 @@ class TimeLineBlock(blocks.StructBlock):
         icon = 'placeholder'
         label = 'Timeline'
 
+class EventBlock(blocks.StructBlock):
+    background = ImageChooserBlock()
+    headline = blocks.CharBlock()
+    maintitle = blocks.CharBlock()
+
+    lefttitle = blocks.CharBlock()
+    lefttime = blocks.CharBlock()
+    leftdate = blocks.CharBlock()
+    lefttext = blocks.TextBlock()
+
+    righttitle = blocks.CharBlock()
+    righttime = blocks.CharBlock()
+    rightdate = blocks.CharBlock()
+    righttext = blocks.TextBlock()
+
+
+    class Meta:
+        template = 'homepage/event_block.html'
+        icon = 'placeholder'
+        label = 'Event Block'
 
 class CoupleBlock(blocks.StructBlock):
+    bg_gray = blocks.BooleanBlock(required=False, help_text="Select if background should by gray")
     maintitle = blocks.CharBlock()
     subtitle = blocks.CharBlock()
     headline = blocks.CharBlock()
@@ -341,10 +403,11 @@ class HomePage(Page):
 class OurDayPage(Page):
     body = StreamField(
         [
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
+        ('MainTitle', MainTitleBlock()),
+        ('Paragraph', ParagraphBlock()),
+        ('Image', ImageBlock()),
         ('TwoColumnBlock', TwoColumnBlock()),
+        ('EventBlock', EventBlock()),
         ], default = "")
 
     content_panels = Page.content_panels + [
