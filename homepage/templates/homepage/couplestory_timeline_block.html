@@ -1,0 +1,16 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% image value.photo fill-180x180 as photo_image %}
+
+							<div class="timeline-badge" style="background-image:url({{ photo_image.url }});"></div>
+							<div class="timeline-panel">
+								<div class="timeline-heading">
+									<h3 class="timeline-title">{{ value.headline }}</h3>
+									<span class="date">{{ value.date }}</span>
+								</div>
+								<div class="timeline-body">
+									<p>{{ value.text }}</p>
+								</div>
+							</div>
+						</li>

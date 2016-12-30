@@ -39,6 +39,30 @@ class FormPage(WagtailCaptchaEmailForm):
         ], "Email")
     ]
 
+class TimeLineEntryBlock(blocks.StructBlock):
+    headline = blocks.CharBlock()
+    date = blocks.CharBlock()
+    text = blocks.TextBlock()
+    photo = ImageChooserBlock()
+
+    class Meta:
+        template = 'homepage/couplestory_timeline_block.html'
+        icon = 'placeholder'
+        label = 'TimelineEntry'
+
+class TimeLineBlock(blocks.StructBlock):
+    headline = blocks.CharBlock()
+    maintitle = blocks.CharBlock()
+    text = blocks.TextBlock()
+    timelineentry = blocks.StreamBlock(
+        [('TimelineEntry', TimeLineEntryBlock()),
+         ], default="")
+
+    class Meta:
+        template = 'homepage/couplestory_block.html'
+        icon = 'placeholder'
+        label = 'Timeline'
+
 
 class CoupleBlock(blocks.StructBlock):
     maintitle = blocks.CharBlock()
@@ -116,6 +140,7 @@ class BlockPage(Page):
          ('TwoColumnBlock', TwoColumnBlock()),
          ('GoogleMapBlock', GoogleMapBlock()),
          ('RichTextBlock', blocks.RichTextBlock()),
+         ('TimeLineBlock', TimeLineBlock()),
          ], default="")
 
     content_panels = Page.content_panels + [
@@ -293,6 +318,7 @@ class HomePage(Page):
 
     body = StreamField(
         [('CoupleBlock', CoupleBlock()),
+         ('TimeLineBlock', TimeLineBlock()),
          ], default="")
 
     content_panels = Page.content_panels + [
