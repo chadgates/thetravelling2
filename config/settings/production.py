@@ -219,13 +219,13 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 # Your production stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
 
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
-        'URLS': [env("SEARCHBOX_SSL_URL")],
-        'INDEX': 'wagtail',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
-    }
-}
+# WAGTAILSEARCH_BACKENDS = {
+#     'default': {
+#         'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+#         'URLS': [env("SEARCHBOX_SSL_URL")],
+#         'INDEX': 'wagtail',
+#         'TIMEOUT': 5,
+#         'OPTIONS': {},
+#         'INDEX_SETTINGS': {},
+#     }
+# }
