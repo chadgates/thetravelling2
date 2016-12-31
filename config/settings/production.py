@@ -80,6 +80,8 @@ INSTALLED_APPS += (
     'storages',
 )
 
+# http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region
+AWS_S3_HOST = env('DJANGO_AWS_S3_CUSTOM_DOMAIN', default='s3-eu-west-1.amazonaws.com')
 AWS_ACCESS_KEY_ID = env('DJANGO_AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('DJANGO_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = env('DJANGO_AWS_STORAGE_BUCKET_NAME')
@@ -218,7 +220,7 @@ ADMIN_URL = env('DJANGO_ADMIN_URL')
 
 # Your production stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
-
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 # WAGTAILSEARCH_BACKENDS = {
 #     'default': {
 #         'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
