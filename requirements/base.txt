@@ -44,4 +44,4 @@ redis>=2.10.5
 
 # Your custom requirements go here
 wagtail-django-recaptcha==0.2
-wagtail==1.8
+wagtail==1.7
