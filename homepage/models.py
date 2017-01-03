@@ -428,6 +428,7 @@ class OurWishPage(Page):
         StreamFieldPanel('body'),
     ]
 
+
 class AccommodationPage(Page):
     body = StreamField(
         [
@@ -440,6 +441,7 @@ class AccommodationPage(Page):
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
     ]
+
 
 class GoodToKnowPage(Page):
     body = StreamField(
