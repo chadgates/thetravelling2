@@ -49,6 +49,8 @@ LOCAL_APPS = (
     'projthetravelling.users.apps.UsersConfig',
     # Your stuff: custom apps go here
     'homepage',
+    'wagtailcaptcha',
+    'captcha',
     'wagtail.wagtailforms',  # wagtail
     'wagtail.wagtailredirects',  # wagtail
     'wagtail.wagtailembeds',  # wagtail
@@ -270,3 +272,6 @@ ADMIN_URL = r'^admin/'
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
 WAGTAIL_SITE_NAME = 'The travelling 2'
+RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
+NOCAPTCHA = True

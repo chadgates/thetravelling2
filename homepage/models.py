@@ -25,12 +25,22 @@ class FormField(AbstractFormField):
 class FormPage(WagtailCaptchaEmailForm):
     intro = RichTextField(blank=True, help_text='Edit the content you want to see before the form.')
     thank_you_text = RichTextField(blank=True, help_text='Set the message users will see after submitting the form.')
+    headline = models.CharField(max_length=255, default="Contact us")
+    background = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     class Meta:
         verbose_name = "Form submission page"
 
     content_panels = WagtailCaptchaEmailForm.content_panels + [
         FieldPanel('intro', classname="full"),
+        ImageChooserPanel('background'),
+        FieldPanel('thank_you_text'),
         InlinePanel('form_fields', label="Form fields"),
         MultiFieldPanel([
             FieldPanel('to_address', classname="full"),
