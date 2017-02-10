@@ -9,11 +9,27 @@
 
   <div class="row">
     <div class="col-sm-12">
-
       <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
+      <p>
+        {% if object.name %}
+        {{ object.name }}<br>
       {% endif %}
+      {% if object.street1 %}
+        {{ object.street1 }}<br>
+      {% endif %}
+      {% if object.street2 %}
+        {{ object.street2 }}<br>
+      {% endif %}
+      {% if object.zipcode or object.city %}
+        {{ object.zipcode }} {% if object.zipcode %} &nbsp;{% endif %} {{ object.city }}<br>
+      {% endif %}
+      {% if object.country %}
+        {{ object.country }}<br>
+      {% endif %}
+      {% if object.phone %}
+        {{ object.phone }}<br>
+      {% endif %}
+      </p>
     </div>
   </div>
 

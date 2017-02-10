@@ -28,14 +28,14 @@
 {% block content %}
     <div class="container">
         {{ page.intro|richtext }}
-        <div class="row">
-        <div class="col-md-8">
-        <form action="{% pageurl page %}" method="POST">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <input type="submit">
-        </form>
-        </div>
+{#        <div class="row">#}
+{#        <div class="col-md-8">#}
+{#        <form action="{% pageurl page %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            {{ form|crispy }}#}
+{#            <input type="submit">#}
+{#        </form>#}
+{#        </div>#}
     </div>
     </div>
 {% endblock %}

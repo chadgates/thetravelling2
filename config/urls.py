@@ -11,6 +11,7 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
+
 urlpatterns = [
     #url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
     #url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
@@ -22,13 +23,15 @@ urlpatterns = [
     url(r'^users/', include('projthetravelling.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
+    # Your stuff: custom urls includes go here
+    url(r'^wedding/', include('wedding.urls', namespace="wedding")),
+
     # Wagtail
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^pages/', include(wagtail_urls)),
     url(r'', include(wagtail_urls)),
 
-    # Your stuff: custom urls includes go here
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

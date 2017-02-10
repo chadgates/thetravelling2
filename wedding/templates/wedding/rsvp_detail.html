@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block nav_rsvp %}class="active{% endblock %}
+{% block title %}User: {{ object.username }}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h2>{{ rsvp.user.name }}</h2>
+      <p>
+        {% if rsvp.date %}
+        Date: {{ rsvp.date }}<br>
+      {% endif %}
+      {% if rsvp.will_attend %}
+        {% trans "Attending" %}: {% trans "Yes, is attending" %}<br>
+      {% else %}
+        {% trans "Attending" %}: {% trans "No, unfortunatly not attending" %}<br>
+      {% endif %}
+      {% if rsvp.guest2 %}
+        {% trans "Additional Guest" %}: {{ rsvp.guest2 }}<br>
+      {% endif %}
+      {% if rsvp.guest3 %}
+        {% trans "Additional Guest" %}: {{ rsvp.guest3 }}<br>
+      {% endif %}
+      {% if rsvp.guest4 %}
+        {% trans "Additional Guest" %}: {{ rsvp.guest4 }}<br>
+      {% endif %}
+      </p>
+    </div>
+  </div>
+
+{% if rsvp.user == request.user %}
+<!-- Action buttons -->
+<div class="row">
+
+  <div class="col-sm-12">
+    <a class="btn btn-primary" href="{% url 'wedding:rsvp-update' %}" role="button">{% trans "Edit" %}</a>
+    <!-- Your Stuff: Custom user template urls -->
+  </div>
+
+</div>
+<!-- End Action buttons -->
+{% endif %}
+
+
+</div>
+{% endblock content %}
+

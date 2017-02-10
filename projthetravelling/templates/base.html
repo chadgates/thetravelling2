@@ -101,10 +101,11 @@
 						<li {% block nav_goodtoknow %}{% endblock %}><a href="/goodtoknow">Good to know</a></li>
 						<li {% block nav_contact %}{% endblock %}><a href="/contact">Contact</a></li>
                         {% if request.user.is_authenticated %}
+                            <li {% block nav_rsvp %}{% endblock %}><a href="{% url 'wedding:rsvp-detail' request.user.username %}">{% trans "My RSVP" %}</a></li>
                             <li {% block nav_profile %}{% endblock %}><a href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a></li>
                             <li {% block nav_logout %}{% endblock %}><a href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a></li>
                         {% else %}
-                            <li {% block nav_signup %}{% endblock %}><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
+{#                            <li {% block nav_signup %}{% endblock %}><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>#}
                             <li {% block nav_login %}{% endblock %}><a href="{% url 'account_login' %}">{% trans "Sign In" %}</a></li>
                         {% endif %}
 					</ul>

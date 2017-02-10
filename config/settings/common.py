@@ -64,6 +64,7 @@ LOCAL_APPS = (
     'wagtail.wagtailcore',  # wagtail
     'modelcluster',  # wagtail
     'taggit',  # wagtail
+    'wedding', # wedding
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

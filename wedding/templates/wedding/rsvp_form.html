@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n static %}
+
+{% block nav_rsvp %}class="active{% endblock %}
+
+{% block title %}{{ rsvp.user.name }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+  <div class="row">
+          <div class="col-sm-12">
+  <h1>{{ user.name }}</h1>
+  <form method="post" action="{% url 'wedding:rsvp-update' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+      </div>
+    </div>
+  </form>
+          </div>
+  </div>
+    </div>
+{% endblock %}
