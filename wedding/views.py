@@ -65,4 +65,9 @@ class RsvpDetail(LoginRequiredMixin, DetailView):
     form_class = RsvpForm
 
     def get_object(self):
-      return Rsvp.objects.get(user__username=self.kwargs['username'])
+        try:
+            obj = Rsvp.objects.get(user__username=self.kwargs['username'])
+        except Rsvp.DoesNotExist:
+            obj = None
+
+        return obj

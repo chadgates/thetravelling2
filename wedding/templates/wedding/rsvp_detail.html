@@ -11,28 +11,31 @@
     <div class="col-sm-12">
       <h2>{{ rsvp.user.name }}</h2>
       <p>
-        {% if rsvp.date %}
+      {% if rsvp.date %}
         Date: {{ rsvp.date }}<br>
-      {% endif %}
-      {% if rsvp.will_attend %}
-        {% trans "Attending" %}: {% trans "Yes, is attending" %}<br>
+
+          {% if rsvp.will_attend %}
+            {% trans "Attending" %}: {% trans "Yes, is attending" %}<br>
+              {% if rsvp.guest2 %}
+                {% trans "Additional Guest" %}: {{ rsvp.guest2 }}<br>
+              {% endif %}
+              {% if rsvp.guest3 %}
+                {% trans "Additional Guest" %}: {{ rsvp.guest3 }}<br>
+              {% endif %}
+              {% if rsvp.guest4 %}
+                {% trans "Additional Guest" %}: {{ rsvp.guest4 }}<br>
+              {% endif %}
+          {% else %}
+            {% trans "Attending" %}: {% trans "No, unfortunatly not attending" %}<br>
+          {% endif %}
       {% else %}
-        {% trans "Attending" %}: {% trans "No, unfortunatly not attending" %}<br>
-      {% endif %}
-      {% if rsvp.guest2 %}
-        {% trans "Additional Guest" %}: {{ rsvp.guest2 }}<br>
-      {% endif %}
-      {% if rsvp.guest3 %}
-        {% trans "Additional Guest" %}: {{ rsvp.guest3 }}<br>
-      {% endif %}
-      {% if rsvp.guest4 %}
-        {% trans "Additional Guest" %}: {{ rsvp.guest4 }}<br>
-      {% endif %}
+          {% trans "You have not yet filled in the form. Please click edit to fill out the form."%} <br>
+       {% endif %}
       </p>
     </div>
   </div>
 
-{% if rsvp.user == request.user %}
+{% if rsvp.user == request.user or not rsvp.date %}
 <!-- Action buttons -->
 <div class="row">
 
