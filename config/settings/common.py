@@ -258,6 +258,8 @@ ACCOUNT_ADAPTER = 'projthetravelling.users.adapters.AccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'projthetravelling.users.adapters.SocialAccountAdapter'
 
 # Custom user app defaults
+ACCOUNT_SIGNUP_FORM_CLASS = 'projthetravelling.users.forms.RegistrationForm'
+
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = 'users:redirect'
