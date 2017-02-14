@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 11:33+0100\n"
-"PO-Revision-Date: 2017-02-13 23:20+0100\n"
+"POT-Creation-Date: 2017-02-14 14:22+0100\n"
+"PO-Revision-Date: 2017-02-14 14:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -26,7 +26,8 @@ msgstr "Kann leider nicht teilnehmen."
 msgid "Accepts with Pleasure. I will be accompanied by:"
 msgstr "Nehme gerne teil. Ich werde begleitet von:"
 
-#: forms.py:24 models.py:15
+#: forms.py:24 models.py:15 templates/wedding/rsvp_detail.html:18
+#: templates/wedding/rsvp_detail.html:29
 msgid "Attendance"
 msgstr "Teilnahme"
 
@@ -34,13 +35,9 @@ msgstr "Teilnahme"
 msgid "Name, Surname"
 msgstr "Name, Vorname"
 
-#: templates/wedding/rsvp_detail.html:18 templates/wedding/rsvp_detail.html:29
-msgid "Attending"
-msgstr "Nimmt teil"
-
 #: templates/wedding/rsvp_detail.html:18
 msgid "Yes, is attending"
-msgstr "Ja, ich bin dabei"
+msgstr "Ja, ist dabei"
 
 #: templates/wedding/rsvp_detail.html:20 templates/wedding/rsvp_detail.html:23
 #: templates/wedding/rsvp_detail.html:26
@@ -49,7 +46,7 @@ msgstr "Zusätzlicher Gast"
 
 #: templates/wedding/rsvp_detail.html:29
 msgid "No, unfortunatly not attending"
-msgstr "Nein, ich kann leider nicht teilnehmen"
+msgstr "Nein, kann leider nicht teilnehmen"
 
 #: templates/wedding/rsvp_detail.html:32
 msgid ""

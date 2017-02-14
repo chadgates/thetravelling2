@@ -15,7 +15,7 @@
         Date: {{ rsvp.date }}<br>
 
           {% if rsvp.will_attend %}
-            {% trans "Attending" %}: {% trans "Yes, is attending" %}<br>
+            {% trans "Attendance" %}: {% trans "Yes, is attending" %}<br>
               {% if rsvp.guest2 %}
                 {% trans "Additional Guest" %}: {{ rsvp.guest2 }}<br>
               {% endif %}
@@ -26,7 +26,7 @@
                 {% trans "Additional Guest" %}: {{ rsvp.guest4 }}<br>
               {% endif %}
           {% else %}
-            {% trans "Attending" %}: {% trans "No, unfortunatly not attending" %}<br>
+            {% trans "Attendance" %}: {% trans "No, unfortunatly not attending" %}<br>
           {% endif %}
       {% else %}
           {% trans "You have not yet filled in the form. Please click edit to fill out the form."%} <br>

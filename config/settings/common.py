@@ -279,3 +279,7 @@ WAGTAIL_SITE_NAME = 'The travelling 2'
 RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
 NOCAPTCHA = True
+
+LOCALE_PATHS = [str(APPS_DIR.path('locale')),
+                str(APPS_DIR.path('projthetravelling').path('locale')),
+                str(APPS_DIR.path('wedding').path('locale'))]

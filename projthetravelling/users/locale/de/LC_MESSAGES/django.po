@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 11:38+0100\n"
-"PO-Revision-Date: 2017-02-14 11:38+0100\n"
+"POT-Creation-Date: 2017-02-14 14:09+0100\n"
+"PO-Revision-Date: 2017-02-14 14:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -61,16 +61,3 @@ msgstr "Name"
 #: models.py:22
 msgid "Phone"
 msgstr "Telefon"
-
-#, fuzzy
-#~| msgid "Street 1"
-#~ msgid "Street1"
-#~ msgstr "Strasse 1"
-
-#, fuzzy
-#~| msgid "Street 2"
-#~ msgid "Street2"
-#~ msgstr "Strasse 2"
-
-#~ msgid "ZIP"
-#~ msgstr "PLZ"
