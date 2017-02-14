@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from django.views.generic.edit import ModelFormMixin, ProcessFormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView, ListView
 from .models import Rsvp
 from .forms import RsvpForm
 from django.core.urlresolvers import reverse
@@ -71,3 +71,12 @@ class RsvpDetail(LoginRequiredMixin, DetailView):
             obj = None
 
         return obj
+
+
+class RsvpList(LoginRequiredMixin, ListView):
+    permission_required = 'rsvp.view_list'
+    model = Rsvp
+    context_object_name = 'rsvp_list'
+    form_class = RsvpForm
+    #slug_field = 'user'
+    #slug_url_kwarg = 'user'

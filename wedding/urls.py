@@ -23,4 +23,9 @@ urlpatterns = [
         view=wedding_views.RsvpUpdate.as_view(),
         name='rsvp-update'
     ),
+    url(
+        regex=r'^rsvps/$',
+        view=wedding_views.RsvpList.as_view(),
+        name='rsvp-list'
+    ),
 ]

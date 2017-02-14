@@ -27,3 +27,8 @@ class Rsvp(models.Model):
 
     def get_absolute_url(self):
         return reverse('wedding:rsvp-detail', kwargs={'username': self.user.username})
+
+    class Meta:
+        permissions = (
+            ("view_list", "Can see the RSVP list"),
+        )
