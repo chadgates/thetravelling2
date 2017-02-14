@@ -9,13 +9,22 @@ from captcha.fields import ReCaptchaField
 
 
 class RegistrationForm(forms.ModelForm):
-    name = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': _('Name, Surname')}))
-    street1 = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': _('Street and House Number')}))
-    street2 = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'placeholder': _('Street and House Number')}))
-    zipcode = forms.CharField(max_length=10,  required=True, widget=forms.TextInput(attrs={'placeholder': _('ZIP Code')}))
-    city = forms.CharField(max_length=100,  required=True, widget=forms.TextInput(attrs={'placeholder': _('City Name, State')}))
-    country = forms.CharField(max_length=100,  required=False, widget=forms.TextInput(attrs={'placeholder': _('Country')}))
-    captcha = ReCaptchaField()
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['name'] = forms.CharField(
+            label=_('Name'), required=True, widget=forms.TextInput(attrs={'placeholder': _('Name, Surname')}))
+        self.fields['street1'] = forms.CharField(
+            label=_('Street 1'), max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': _('Street and House Number')}))
+        self.fields['street2'] = forms.CharField(
+            label=_('Street 2'), max_length=100, required=False, widget=forms.TextInput(attrs={'placeholder': _('Street and House Number')}))
+        self.fields['zipcode'] = forms.CharField(
+            label=_('ZIP Code'), max_length=10,  required=True, widget=forms.TextInput(attrs={'placeholder': _('ZIP Code')}))
+        self.fields['city'] = forms.CharField(
+            label=_('City'), max_length=100, required=True, widget=forms.TextInput(attrs={'placeholder': _('City Name, State')}))
+        self.fields['country'] =  forms.CharField(
+            label=_('Country'), max_length=100,  required=False, widget=forms.TextInput(attrs={'placeholder': _('Country')}))
+        self.fields['captcha'] = ReCaptchaField()
 
     class Meta:
         model = User

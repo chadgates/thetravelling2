@@ -16,7 +16,7 @@ class User(AbstractUser):
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
     street1 = models.CharField(_('Street 1'), blank=True, max_length=100)
     street2 = models.CharField(_('Street 2'), blank=True, max_length=100)
-    zipcode = models.CharField(_('ZIP'), blank=True, max_length=10)
+    zipcode = models.CharField(_('ZIP Code'), blank=True, max_length=10)
     city    = models.CharField(_('City'), blank=True, max_length=100)
     country = models.CharField(_('Country'), blank=True, max_length=100)
     phone   = models.CharField(_('Phone'), blank=True, max_length=100)

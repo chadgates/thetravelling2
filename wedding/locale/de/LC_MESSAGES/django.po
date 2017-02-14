@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-14 11:33+0100\n"
+"PO-Revision-Date: 2017-02-13 23:20+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: forms.py:11
+msgid "Declines with Regrets"
+msgstr "Kann leider nicht teilnehmen."
+
+#: forms.py:12
+msgid "Accepts with Pleasure. I will be accompanied by:"
+msgstr "Nehme gerne teil. Ich werde begleitet von:"
+
+#: forms.py:24 models.py:15
+msgid "Attendance"
+msgstr "Teilnahme"
+
+#: models.py:16 models.py:17 models.py:18
+msgid "Name, Surname"
+msgstr "Name, Vorname"
+
+#: templates/wedding/rsvp_detail.html:18 templates/wedding/rsvp_detail.html:29
+msgid "Attending"
+msgstr "Nimmt teil"
+
+#: templates/wedding/rsvp_detail.html:18
+msgid "Yes, is attending"
+msgstr "Ja, ich bin dabei"
+
+#: templates/wedding/rsvp_detail.html:20 templates/wedding/rsvp_detail.html:23
+#: templates/wedding/rsvp_detail.html:26
+msgid "Additional Guest"
+msgstr "Zusätzlicher Gast"
+
+#: templates/wedding/rsvp_detail.html:29
+msgid "No, unfortunatly not attending"
+msgstr "Nein, ich kann leider nicht teilnehmen"
+
+#: templates/wedding/rsvp_detail.html:32
+msgid ""
+"You have not yet filled in the form. Please click edit to fill out the form."
+msgstr ""
+"Sie haben noch keine Anmeldung vorgenommen. Bitte klicken sie auf "
+"“Editieren” um die Anmeldung auszufüllen."
+
+#: templates/wedding/rsvp_detail.html:43
+msgid "Edit"
+msgstr "Editieren"
+
+#: templates/wedding/rsvp_form.html:19
+msgid "Update"
+msgstr "Aktualisieren"

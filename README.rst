@@ -108,3 +108,16 @@ See detailed `cookiecutter-django Docker documentation`_.
 .. _`cookiecutter-django Docker documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html
 
 
+Localization
+^^^^^^^^^^^^
+
+to create localized version, run makemessages in following directories:
+
+projthetravelling:
+django-admin makemessages -l de -e html,txt,py --ignore=templates/account/*.html
+
+projthetavelling\users:
+django-admin makemessages -l de -e html,txt,py
+
+wedding:
+django-admin makemessages -l de -e html,txt,py
