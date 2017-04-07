@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}{% load i18n %}
+{% block title %}{% trans "Gifts" %}{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        <h2>{% trans "Gifts" %}</h2>
+
+        {% for gift in gifts %}
+            <div class="row">
+                <div class="col-md-6 col-md-push-6">
+                    <p>
+                          {% if gift.img %}
+                        <img src="{{ gift.img.url }}" alt="Image" class="img-responsive">
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="col-md-6 cold-md-pull-6">
+                    <h2>{{ gift.name }}</h2>
+                </div>
+                <p>
+                    {{ gift.description }}
+                </p>
+                <p class="btn-actions">
+                    <a href="#" class="btn btn-success"></a>
+                </p>
+            </div>
+        {% endfor %}
+
+    {% if gifts.count == 0 %}
+        <p>
+        {% trans "No gifts exists yet. Create one to get started." %}
+        </p>
+         <a href={% url 'wedding:gift-create' %} class="btn btn-primary btn-large" role="button" > {% trans "Add new" %} </a>
+    {%  endif %}
+    </div>
+{% endblock content %}

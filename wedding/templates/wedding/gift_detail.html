@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block nav_ourwish %}class="active"{% endblock %}
+{% block title %}{{ gift.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+          <h2>{{ gift.name }}</h2>
+          <p>
+              {% trans "Name" %}: {{ gift.name }}<br>
+              {% trans "Description" %}: {{ gift.description }}<br>
+              {% trans "Link" %}: <a href="{{ gift.link }}">{{ gift.link }}</a><br>
+              {% trans "Price" %}: {{ gift.price }}<br>
+              {% trans "Gift is part" %}: {{ gift.gift_is_part }}<br>
+              {% trans "Maximum number of parts"%}: {{ gift.max_parts }}<br>
+              {% trans "Number of parts taken" %}: {{ gifts.taken_parts }}<br>
+              {% trans "Picture" %}: <br>
+              {% if gift.img %}
+                 <a><img src="{{ gift.img.url }}" height="420"></a>
+              {% endif %}
+          </p>
+        </div>
+    </div>
+<!-- Action buttons -->
+    <div class="row">
+        <div class="col-sm-12">
+            <a href={% url 'wedding:gift-update' gift.id %} class="btn btn-primary btn-large" role="button"> {% trans "Change" %} </a>
+            <a href={% url 'wedding:gift-delete' gift.id %} class="btn btn-danger btn-large" role="button"> {% trans "Delete" %} </a>
+        </div>
+    </div>
+<!-- End Action buttons -->
+</div>
+{% endblock content %}
+

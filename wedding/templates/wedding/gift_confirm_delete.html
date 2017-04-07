@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}{% load i18n %}
+{% block title %}{% trans "Delete Gift?" %}{% endblock %}
+
+{% block content %}
+    <br>
+    <form action="" method="post">{% csrf_token %}
+    {{ form|crispy }}
+        <p>{% trans "Are you sure you want to delete" %} &nbsp; {{ gift.name }}"?</p>
+        <input type="submit" class="btn btn-danger" value={% trans "Confirm" %} />
+     <a href={% url 'wedding:gift-list' %} class="btn btn-secondary btn-large" role="button" >{% trans "Cancel" %}</a>
+    </form>
+
+{% endblock content %}

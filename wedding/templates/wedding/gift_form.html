@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}{% load i18n %}
+{% block title %}Gift{% endblock %}
+
+{% block content %}
+    <br>
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        {% if gift.id %}
+            <input type="submit" class="btn btn-primary" name = "save" value={% trans "Save" %}>
+        {% else %}
+            <input type="submit" class="btn btn-primary" name = "save" value={% trans "Add" %}>
+        {% endif %}
+
+        <a href={% url 'wedding:gift-list' %} class="btn btn-secondary btn-large" role="button"> {% trans "Cancel" %} </a>
+    </form>
+</div>
+{% endblock content %}

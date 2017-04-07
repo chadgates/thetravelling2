@@ -28,4 +28,34 @@ urlpatterns = [
         view=wedding_views.RsvpList.as_view(),
         name='rsvp-list'
     ),
+
+    url(
+        regex=r'^gift/create/$',
+        view=wedding_views.GiftCreate.as_view(),
+        name='gift-create',
+    ),
+    url(
+        regex=r'^gift/(?P<pk>[\w\-]+)/$',
+        view=wedding_views.GiftDetail.as_view(),
+        name='gift-detail',
+    ),
+    # URL pattern for the UpdateView
+    url(
+        regex=r'^gift/(?P<pk>[\w\-]+)/update/$',
+        view=wedding_views.GiftUpdate.as_view(),
+        name='gift-update',
+    ),
+    # URL pattern for the DeleteView
+    url(
+        regex=r'^gift/(?P<pk>[\w\-]+)/delete/$',
+        view=wedding_views.GiftDelete.as_view(),
+        name='gift-delete',
+    ),
+    # URL pattern for the Listview
+    url(
+        regex=r'^gift/$',
+        view=wedding_views.GiftList.as_view(),
+        name='gift-list',
+    ),
+
 ]

@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django import forms
-from .models import Rsvp
+from .models import Rsvp, Gift
 from django.utils.translation import ugettext as _
 
 
