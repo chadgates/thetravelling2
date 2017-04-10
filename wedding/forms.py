@@ -47,8 +47,9 @@ class CartItemForm(forms.ModelForm):
     #    #self.fields['user'] = self.user
 
 
-class GiftOrderForm(forms.ModalForm):
+class GiftOrderForm(forms.ModelForm):
 
     class Meta:
             model = GiftOrder
-            fields = ['']
+            fields = ['voucher_from', 'voucher_greeting', 'voucher_senddirect']
+

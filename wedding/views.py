@@ -8,7 +8,7 @@ from django.views.generic.edit import ModelFormMixin, ProcessFormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, UpdateView, ListView, CreateView, DeleteView
 from .models import Rsvp, Gift, GiftOrder, GiftOrderItem, CartItem
-from .forms import RsvpForm, CartItemForm
+from .forms import RsvpForm, CartItemForm, GiftOrderForm
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils.translation import ugettext as _
@@ -166,3 +166,19 @@ class CartItemUpdate(LoginRequiredMixin, GiftViewMixin, UpdateView):
 class CartItemDelete(LoginRequiredMixin, GiftViewMixin, DeleteView):
     success_msg = _("Deleted")
     success_url = reverse_lazy('wedding:cart-list')
+
+
+class GiftOrderCreate(LoginRequiredMixin, GiftViewMixin, CreateView):
+    success_msg = _("Successfully sent a gift basket")
+    success_url = reverse_lazy('wedding:order-list')
+    form_class = GiftOrderForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(GiftOrderCreate, self).form_valid(form)
+
+
+class GiftOrderList(LoginRequiredMixin, ListView):
+    model = GiftOrder
+    context_object_name = 'giftorder'
+

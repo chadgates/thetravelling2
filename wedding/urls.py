@@ -93,4 +93,18 @@ urlpatterns = [
         name='cart-list',
     ),
 
+    # CART-ITEMS
+    # **********
+
+    url(
+        regex=r'^order/create/$',
+        view=wedding_views.GiftOrderCreate.as_view(),
+        name='order-create',
+    ),
+    url(
+        regex=r'^order/$',
+        view=wedding_views.GiftOrderList.as_view(),
+        name='order-list',
+    ),
+
 ]

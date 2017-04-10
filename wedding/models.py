@@ -52,12 +52,14 @@ class Gift(TimeStampedModel):
     taken_parts = models.PositiveIntegerField(verbose_name=_('Number of parts taken'), default=0)
     img = models.ImageField(blank=True, null=True)
 
-    @property
-    def is_taken(self):
+    def is_available(self):
         if self.taken_parts < self.max_parts:
-            return False
-        else:
             return True
+        else:
+            return False
+
+    def avail_parts(self):
+        return self.max_parts - self.taken_parts
 
     def __str__(self):
         return self.name
@@ -72,10 +74,23 @@ class Gift(TimeStampedModel):
 
 class GiftOrder(TimeStampedModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    buyer = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     voucher_from = models.CharField(verbose_name=_('Voucher is from'), max_length=300)
     voucher_greeting = models.TextField(verbose_name=_('Voucher Greeting'), null=True, blank=True)
     voucher_senddirect = models.BooleanField(verbose_name=_('Send voucher directly'), default=False)
+
+    def save(self, *args, **kwargs):
+        super(GiftOrder, self).save(*args, **kwargs)
+        mycart  = CartItem.objects.filter(user=self.user)
+
+        for item in mycart:
+            newitem = GiftOrderItem(gift=item.gift, quantity=item.quantity, giftorder=self)
+            newitem.save()
+            gift = Gift.objects.get(id=item.gift.id)
+            gift.taken_parts += item.quantity
+            gift.save()
+            item.delete()
+        # TODO: Send e-mail !!!!
 
 
 class GiftOrderItem(TimeStampedModel):

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}{% load i18n %}
+{% load crispy_forms_tags %}
 {% block title %}{% trans "Gift basket" %}{% endblock %}
 
 {% block content %}
@@ -14,12 +15,20 @@
                         {{ gift.amount }} <br>
                         {{ gift.gift.name }} <br>
                         {{ gift.gift.price }} <br>
-                        {{ gift.price_total }}
+                        {{ gift.price_total }} <br>
+                        {{ gift.id }}
                     </p>
                 </div>
 
             </div>
         {% endfor %}
+        <form method="post" action="{% url 'wedding:order-create' %}">
+        {% csrf_token %}
+            <input type="text" name="voucher_from">
+            <input type="text" name="voucher_greeting">
+            <input type="checkbox" name="voucher_senddirect">
+            <input type="submit" class="btn btn-primary" name = "save" value="{% trans "Request Coupon" %}" />
+        </form>
 
     {% if cartitems.count == 0 %}
         <p>
