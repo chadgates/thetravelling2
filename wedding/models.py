@@ -90,8 +90,12 @@ class Cart(TimeStampedModel):
 
 class CartItem(TimeStampedModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    buyer = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     gift = models.ForeignKey(Gift)
-    amount = models.PositiveIntegerField(verbose_name=_('Item count'))
+    quantity = models.PositiveIntegerField(verbose_name=_('Item count'))
 
+    def get_absolute_url(self):
+        return reverse("wedding:cart-detail", kwargs={'pk': self.pk})
 
+    def price_total(self):
+        return self.quantity * self.gift.price

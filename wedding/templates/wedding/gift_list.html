@@ -9,6 +9,8 @@
 
         {% for gift in gifts %}
             <div class="row">
+             <form method="post" action="{% url 'wedding:cart-create' %}">
+                             {% csrf_token %}
                 <div class="col-md-6 col-md-push-6">
                     <p>
                           {% if gift.img %}
@@ -16,15 +18,24 @@
                         {% endif %}
                     </p>
                 </div>
-                <div class="col-md-6 cold-md-pull-6">
+                <div class="col-md-6 col-md-pull-6">
                     <h2>{{ gift.name }}</h2>
-                </div>
+
                 <p>
                     {{ gift.description }}
                 </p>
-                <p class="btn-actions">
-                    <a href="#" class="btn btn-success"></a>
+                    {% if gift.gift_is_part %}
+                        {% trans "We/I treat the couple to "%} <input name="quantity" type="number" class="text-right" min=1 max="{{ gift.max_parts }}" required="required">  {% trans "of" %} {{ gift.max_parts }} {% trans "parts of" %} {{ gift.name }}, {% trans " each with the value of CHF"%} {{ gift.price }}.
+                    {% else %}
+                        {% trans "We/I treat the couple to "%} {{ gift.name }}, {% trans "with the value of CHF "%} {{ gift.price }}.
+                        <input hidden name="quantity" value="1">
+                    {% endif %}
+                <p>
+                    <input hidden name="gift" value="{{ gift.id }}">
+                    <input type="submit" class="btn btn-primary" name = "save" value={% trans "Grant wish" %} />
                 </p>
+                </div>
+             </form>
             </div>
         {% endfor %}
 
@@ -36,3 +47,19 @@
     {%  endif %}
     </div>
 {% endblock content %}
+
+{% block extra-script %}
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+    <script>
+$(document).ready(function () {
+
+    $('form').each(function () {
+        $(this).validate({
+            // your options
+        });
+    });
+
+});
+</script>
+
+{% endblock extra-script %}

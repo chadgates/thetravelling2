@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django import forms
-from .models import Rsvp, Gift
+from .models import Rsvp, CartItem, GiftOrder
 from django.utils.translation import ugettext as _
 
 
@@ -33,3 +33,22 @@ class RsvpForm(forms.ModelForm):
             'guest3',
             'guest4',
         )
+
+
+class CartItemForm(forms.ModelForm):
+
+    class Meta:
+            model = CartItem
+            fields = ['quantity', 'gift']
+
+    #def __init__(self, *args, **kwargs):
+    #    self.user = kwargs.pop('user')
+    #    super(CartItemForm, self).__init__(*args, **kwargs)
+    #    #self.fields['user'] = self.user
+
+
+class GiftOrderForm(forms.ModalForm):
+
+    class Meta:
+            model = GiftOrder
+            fields = ['']

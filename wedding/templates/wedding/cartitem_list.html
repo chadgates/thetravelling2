@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}{% load i18n %}
+{% block title %}{% trans "Gift basket" %}{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        <h2>{% trans "Gift basket" %}</h2>
+
+        {% for gift in cartitems %}
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        {{ gift.amount }} <br>
+                        {{ gift.gift.name }} <br>
+                        {{ gift.gift.price }} <br>
+                        {{ gift.price_total }}
+                    </p>
+                </div>
+
+            </div>
+        {% endfor %}
+
+    {% if cartitems.count == 0 %}
+        <p>
+        {% trans "Your gift basket is empty." %}
+        </p>
+    {%  endif %}
+    </div>
+{% endblock content %}

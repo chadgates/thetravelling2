@@ -7,12 +7,13 @@ from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from django.views.generic.edit import ModelFormMixin, ProcessFormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, UpdateView, ListView, CreateView, DeleteView
-from .models import Rsvp, Gift, GiftOrder, GiftOrderItem
-from .forms import RsvpForm
+from .models import Rsvp, Gift, GiftOrder, GiftOrderItem, CartItem
+from .forms import RsvpForm, CartItemForm
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import redirect
 
 # Source: http://stackoverflow.com/questions/17192737/django-class-based-view-for-both-create-and-update
 class CreateUpdateView(SingleObjectTemplateResponseMixin, ModelFormMixin,
@@ -136,3 +137,32 @@ class GiftDelete(GiftViewMixin, DeleteView):
     success_msg = _("Deleted")
     success_url = reverse_lazy('wedding:gift-list')
 
+
+
+class CartItemList(LoginRequiredMixin, ListView):
+    model = CartItem
+    context_object_name = 'cartitems'
+
+
+class CartItemDetail(LoginRequiredMixin, DetailView):
+    model = CartItem
+    context_object_name = 'cartitem'
+
+
+class CartItemCreate(LoginRequiredMixin, GiftViewMixin, CreateView):
+    success_msg = _("Added to Giftbasket")
+    success_url = reverse_lazy('wedding:cart-list')
+    form_class = CartItemForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CartItemCreate, self).form_valid(form)
+
+class CartItemUpdate(LoginRequiredMixin, GiftViewMixin, UpdateView):
+    success_msg = _("Saved")
+    fields = ['quantity',
+              ]
+
+class CartItemDelete(LoginRequiredMixin, GiftViewMixin, DeleteView):
+    success_msg = _("Deleted")
+    success_url = reverse_lazy('wedding:cart-list')
