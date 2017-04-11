@@ -102,9 +102,19 @@ class GiftViewMixin(object):
 
 
 class GiftList(ListView):
-    model = Gift
+
     context_object_name = 'gifts'
 
+    def get_queryset(self):
+        return Gift.objects.all().extra(
+                    select = {'cart_quantity': """
+                    SELECT SUM(quantity) FROM wedding_cartitem
+                    WHERE wedding_cartitem.user_id = %s AND wedding_cartitem.gift_id = wedding_gift.id 
+                    GROUP BY wedding_cartitem.gift_id
+                    """
+                    },
+                select_params = (self.request.user.id,)
+                )
 
 class GiftDetail(DetailView):
     model = Gift

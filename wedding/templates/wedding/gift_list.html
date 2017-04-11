@@ -26,6 +26,9 @@
 
                 <p>
                     {{ gift.description }}
+                    {% if gift.cart_quantity %}
+                        {{ gift.cart_quantity }} in your cart !
+                    {% endif %}
                 </p>
                     {% if gift.gift_is_part %}
                         {% trans "We/I treat the couple to "%} <input name="quantity" type="number" class="text-right" min=1 max="{{ gift.avail_parts }}" required="required">  {% trans "of" %} {{ gift.taken_parts }}/{{ gift.max_parts }} {% trans "parts of" %} {{ gift.name }}, {% trans " each with the value of CHF"%} {{ gift.price }}.
