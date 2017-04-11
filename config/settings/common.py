@@ -65,6 +65,7 @@ LOCAL_APPS = (
     'modelcluster',  # wagtail
     'taggit',  # wagtail
     'wedding', # wedding
+    'imagekit', # imagekit
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

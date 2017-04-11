@@ -158,6 +158,10 @@ class CartItemCreate(LoginRequiredMixin, GiftViewMixin, CreateView):
         form.instance.user = self.request.user
         return super(CartItemCreate, self).form_valid(form)
 
+    def form_invalid(self, form):
+        response = super(CartItemCreate, self).form_invalid(form)
+        return response
+
 class CartItemUpdate(LoginRequiredMixin, GiftViewMixin, UpdateView):
     success_msg = _("Saved")
     fields = ['quantity',
