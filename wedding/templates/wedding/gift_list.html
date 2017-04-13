@@ -6,8 +6,9 @@
     <br>
     <div class="container">
         <h2>{% trans "Gifts" %}</h2>
-
+    </div>
         {% for gift in gifts %}
+            <div class="container">
             {% if gift.is_available %}
             <div class="row">
             {% if user.is_authenticated %}
@@ -18,43 +19,41 @@
                     <p>
                           {% if gift.img_catalog %}
                         <img src="{{ gift.img_catalog.url }}" alt="Image" class="img-responsive">
+
                         {% endif %}
                     </p>
                 </div>
                 <div class="col-md-6 col-md-pull-6">
                     <h2>{{ gift.name }}</h2>
-
-                <p>
-                    {{ gift.description }}
-                    {% if gift.cart_quantity %}
-                        {{ gift.cart_quantity }} in your cart !
-                    {% endif %}
-                </p>
                     {% if gift.gift_is_part %}
-                        {% trans "We/I treat the couple to "%} <input name="quantity" type="number" class="text-right" min=1 max="{{ gift.avail_parts }}" required="required">  {% trans "of" %} {{ gift.taken_parts }}/{{ gift.max_parts }} {% trans "parts of" %} {{ gift.name }}, {% trans " each with the value of CHF"%} {{ gift.price }}.
+                        {% trans "I treat the couple to "%} <input name="quantity" type="number" class="text-right"  min=1 max="{% if gift.total_available %}{{ gift.total_available}}{% else %}{{ gift.avail_parts }}{% endif %}" required="required">  {% trans "of" %} {% if gift.total_taken %}{{ gift.total_taken }}{% else %}{{ gift.taken_parts }}{% endif %}/{{ gift.max_parts }} {% trans "parts of" %} {{ gift.name }}, {% trans " each with the value of CHF"%} {{ gift.price }}.
                     {% else %}
-                        {% trans "We/I treat the couple to "%} {{ gift.name }}, {% trans "with the value of CHF "%} {{ gift.price }}.
-
+                        {% trans "I treat the couple to "%} {{ gift.name }}, {% trans "with the value of CHF "%} {{ gift.price }}.
                         <input hidden name="quantity" value="1">
                     {% endif %}
-                <p>
                     <input hidden name="gift" value="{{ gift.id }}">
+                    <div style="padding-top: 20px"></div>
                     {% if user.is_authenticated %}
-                        <input type="submit" class="btn btn-primary" name = "save" value="{% trans "Grant wish" %}"/>
+                        <input type="submit" class="btn btn-primary" name = "save" value="{% trans "Grant wish" %}"/> {% if gift.cart_quantity %}{{ gift.cart_quantity }} {% trans "already in your gift basket." %}{% endif %}
                     {% else %}
                         <a class="btn btn-primary" href="{% url 'account_login' %}" role="button">{% trans "Log-In to grant this wish" %}</a>
                     {% endif %}
-
-                </p>
                 </div>
+
             {% if user.is_authenticated %}
             </form>
             {% endif %}
 
             </div>
-            {% endif %}
-        {% endfor %}
 
+            {% endif %}
+            </div>
+            </div>
+            <div class="row" style="background-color: lightgray; height: 2px; margin-top: 10px; margin-bottom: 10px">
+            </div>
+
+        {% endfor %}
+    <div class="container">
     {% if gifts.count == 0 %}
         <p>
         {% trans "No gifts exists yet. Create one to get started." %}

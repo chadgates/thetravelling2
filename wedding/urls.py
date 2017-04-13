@@ -93,8 +93,8 @@ urlpatterns = [
         name='cart-list',
     ),
 
-    # CART-ITEMS
-    # **********
+    # VOUCHERS/ORDERS
+    # ***************
 
     url(
         regex=r'^order/create/$',

@@ -13,6 +13,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import Sum, F, DecimalField
 from django.shortcuts import redirect
 
 # Source: http://stackoverflow.com/questions/17192737/django-class-based-view-for-both-create-and-update
@@ -113,8 +114,21 @@ class GiftList(ListView):
                     GROUP BY wedding_cartitem.gift_id
                     """
                     },
-                select_params = (self.request.user.id,)
+                select_params = (self.request.user.id,)).extra(
+                    select={'total_taken': """
+                    SELECT SUM(quantity) + wedding_gift.taken_parts FROM wedding_cartitem 
+                    WHERE wedding_cartitem.user_id = %s AND wedding_cartitem.gift_id = wedding_gift.id 
+                    GROUP BY wedding_cartitem.gift_id
+                    """},
+                select_params = (self.request.user.id,)).extra(
+                    select={'total_available': """
+                    SELECT wedding_gift.max_parts - SUM(quantity) - wedding_gift.taken_parts FROM wedding_cartitem 
+                    WHERE wedding_cartitem.user_id = %s AND wedding_cartitem.gift_id = wedding_gift.id 
+                    GROUP BY wedding_cartitem.gift_id
+                    """},
+                    select_params=(self.request.user.id,)
                 )
+
 
 class GiftDetail(DetailView):
     model = Gift
@@ -150,9 +164,19 @@ class GiftDelete(GiftViewMixin, DeleteView):
 
 
 class CartItemList(LoginRequiredMixin, ListView):
-    model = CartItem
+    #model = CartItem
     context_object_name = 'cartitems'
 
+
+    def get_queryset(self):
+        return CartItem.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(CartItemList, self).get_context_data(**kwargs)
+        context['carttotal'] = CartItem.objects.filter(user=self.request.user).aggregate(total_price=Sum(F('quantity') * F('gift__price'), output_field=DecimalField()))['total_price']
+
+
+        return context
 
 class CartItemDetail(LoginRequiredMixin, DetailView):
     model = CartItem
@@ -178,8 +202,10 @@ class CartItemUpdate(LoginRequiredMixin, GiftViewMixin, UpdateView):
               ]
 
 class CartItemDelete(LoginRequiredMixin, GiftViewMixin, DeleteView):
+    model = CartItem
     success_msg = _("Deleted")
     success_url = reverse_lazy('wedding:cart-list')
+    context_object_name = 'cartitem'
 
 
 class GiftOrderCreate(LoginRequiredMixin, GiftViewMixin, CreateView):
@@ -193,6 +219,9 @@ class GiftOrderCreate(LoginRequiredMixin, GiftViewMixin, CreateView):
 
 
 class GiftOrderList(LoginRequiredMixin, ListView):
-    model = GiftOrder
-    context_object_name = 'giftorder'
+
+    context_object_name = 'giftorders'
+
+    def get_queryset(self):
+        return GiftOrder.objects.filter(user=self.request.user)
 

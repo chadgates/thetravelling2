@@ -9,8 +9,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 import uuid
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFit, ResizeCanvas
-
+from imagekit.processors import ResizeToFit, ResizeCanvas, ResizeToFill
+from django.core.mail import send_mail
+from allauth.account.utils import user_email
+from decimal import Decimal
 
 class TimeStampedModel(models.Model):
     # Abstract base class model that provides self-updating created and modified fields
@@ -56,6 +58,8 @@ class Gift(TimeStampedModel):
     img = models.ImageField(blank=True, null=True)
     img_catalog = ImageSpecField(source='img', processors=[ResizeToFit(800, 600), ResizeCanvas(800,600)],
                                  format='JPEG', options={'quality': 60})
+    img_miniature = ImageSpecField(source='img', processors=[ResizeToFill(60, 60)],
+                                 format='JPEG', options={'quality': 60})
 
     def is_available(self):
         if self.taken_parts < self.max_parts:
@@ -86,19 +90,48 @@ class GiftOrder(TimeStampedModel):
     voucher_from = models.CharField(verbose_name=_('Voucher is from'), max_length=300)
     voucher_greeting = models.TextField(verbose_name=_('Voucher Greeting'), null=True, blank=True)
     voucher_senddirect = models.BooleanField(verbose_name=_('Send voucher directly'), default=False)
+    payment_received = models.BooleanField(verbose_name=_('Payment received'), default=False)
+    voucher_issued = models.BooleanField(verbose_name=_('Voucher issued'), default=False)
+    total_price = models.DecimalField(verbose_name=_('Total price'), max_digits=10, decimal_places=2, default=0.00)
+
 
     def save(self, *args, **kwargs):
+        calc_total = Decimal('0.00')
+        mycart = CartItem.objects.filter(user=self.user)
+        for item in mycart:
+            calc_total = calc_total + (item.quantity * item.gift.price)
+
+        self.total_price = calc_total
+
         super(GiftOrder, self).save(*args, **kwargs)
-        mycart  = CartItem.objects.filter(user=self.user)
 
         for item in mycart:
-            newitem = GiftOrderItem(gift=item.gift, quantity=item.quantity, giftorder=self)
+            newitem = GiftOrderItem(gift=item.gift, quantity=item.quantity, giftorder=self, price=item.gift.price)
             newitem.save()
             gift = Gift.objects.get(id=item.gift.id)
             gift.taken_parts += item.quantity
             gift.save()
             item.delete()
-        # TODO: Send e-mail !!!!
+
+        messagetext = _("Thank you so much for ordering a voucher and helping the couple to make their dream come true!") + "\n\n"
+        messagetext += _("The voucher will be issued after payment receipt.") + "\n\n"
+        messagetext += _("Please send your payment as follows: ") + "\n\n"
+        messagetext += _("Bank") + ": Zürcher Kantonalbank" + "\n"
+        messagetext += _("Account") +  ": IBAN CH68 0070 0110 0056 1840 3\n"
+        messagetext += _("In favour of") + ": Sibylle Widmer + Marco Zurbriggen\n"
+        messagetext += _("Amount") + ": " + self.total_price.__str__() + "\n\n"
+
+        try:
+            send_mail(subject="The Travelling 2 - Voucher Order",
+                      message=messagetext,
+                      from_email="donotreply@thetravelling2.com",
+                      recipient_list=[user_email(self.user)],
+                      )
+        except:
+            pass
+
+    def __str__(self):
+        return self.id.__str__() + ": " + self.user.name
 
 
 class GiftOrderItem(TimeStampedModel):
@@ -106,6 +139,14 @@ class GiftOrderItem(TimeStampedModel):
     gift = models.ForeignKey(Gift)
     giftorder = models.ForeignKey(GiftOrder)
     quantity = models.PositiveIntegerField(verbose_name=_('Item count'))
+    price = models.DecimalField(verbose_name=_('Price'), max_digits=7, decimal_places=2, default=0.00)
+
+    @property
+    def price_total(self):
+        return self.quantity * self.price
+
+    def __str__(self):
+        return self.gift.name
 
 
 class Cart(TimeStampedModel):
@@ -117,8 +158,13 @@ class CartItem(TimeStampedModel):
     gift = models.ForeignKey(Gift)
     quantity = models.PositiveIntegerField(verbose_name=_('Item count'))
 
+
     def get_absolute_url(self):
         return reverse("wedding:cart-detail", kwargs={'pk': self.pk})
 
+    @property
     def price_total(self):
         return self.quantity * self.gift.price
+
+    def __str__(self):
+        return self.gift.name + " " + self.id.__str__()

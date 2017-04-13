@@ -3,37 +3,119 @@
 {% load crispy_forms_tags %}
 {% block title %}{% trans "Gift basket" %}{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{% endblock %}
+
 {% block content %}
     <br>
     <div class="container">
         <h2>{% trans "Gift basket" %}</h2>
+        {% if cartitems.count == 0 %}
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                {% trans "Your gift basket is empty." %}
+                </p>
+                <a href="{% url 'wedding:gift-list' %}" class="btn btn-primary">{% trans "Add a gift" %}</a>
+            </div>
+        </div>
+        {% else %}
 
-        {% for gift in cartitems %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Picture" %}</th>
+                            <th>{% trans "Gift" %}</th>
+                            <th>{% trans "Quantity" %}</th>
+                            <th>{% trans "Price" %}</th>
+                            <th>{% trans "Total" %}</th>
+                            <th>{% trans "Action" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for gift in cartitems %}
+                        <tr>
+                            <td>
+                                {% if gift.gift.img_miniature %}
+                                <img src="{{ gift.gift.img_miniature.url  }}" alt="Image" class="img-responsive">
+                                {% endif %}
+                               </td>
+                            <td> {{ gift.gift.name }}</td>
+                            <td> {{ gift.quantity }}</td>
+                            <td> {{ gift.gift.price }}</td>
+                            <td> {{ gift.price_total }}</td>
+                            <td> <a href="{% url 'wedding:cart-delete' gift.id %}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td> {{ carttotal }}</td>
+                            <td></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <a href="{% url 'wedding:gift-list' %}" class="btn btn-primary">{% trans "Add another" %}</a>
+            </div>
+        </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p>
-                        {{ gift.amount }} <br>
-                        {{ gift.gift.name }} <br>
-                        {{ gift.gift.price }} <br>
-                        {{ gift.price_total }} <br>
-                        {{ gift.id }}
-                    </p>
+                    <br>
                 </div>
-
             </div>
-        {% endfor %}
-        <form method="post" action="{% url 'wedding:order-create' %}">
-        {% csrf_token %}
-            <input type="text" name="voucher_from">
-            <input type="text" name="voucher_greeting">
-            <input type="checkbox" name="voucher_senddirect">
-            <input type="submit" class="btn btn-primary" name = "save" value="{% trans "Request Coupon" %}" />
-        </form>
+            <div class="row">
+            <div class="col-md-12">
+                <form method="post" action="{% url 'wedding:order-create' %}">
+                {% csrf_token %}
 
-    {% if cartitems.count == 0 %}
-        <p>
-        {% trans "Your gift basket is empty." %}
-        </p>
-    {%  endif %}
+                <h3>{% trans "Voucher Detail" %}</h3>
+                <p>
+                    <div class="form-group">
+                        <label for="voucher_from">{% trans "State the names from whom this voucher is from:" %}</label>
+                        <input type="text" class="form-control" id="voucher_from" name="voucher_from" required minlength="2">
+                    </div>
+                </p>
+                <p>
+                   <div class="form-group">
+                      <label for="voucher_greeting">{% trans "Do you wish to add a special greeting on the voucher?" %}</label>
+                       <textarea class="form-control" rows="5" id="voucher_greeting" name="voucher_greeting"></textarea>
+                    </div>
+                </p>
+                <p>
+                     <input type="checkbox"  name="voucher_senddirect"> {% trans "Please send the voucher directly to the couple, I cannot make it to the wedding." %}
+                </p>
+                <p>
+                    <input type="submit" class="btn btn-primary" name = "save" value="{% trans "Request Coupon" %}" />
+                </p>
+
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
     </div>
 {% endblock content %}
+
+
+{% block extra-script %}
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+    <script>
+    $(document).ready(function () {
+
+    $('form').each(function () {
+        $(this).validate({
+            // your options
+        });
+    });
+
+});
+</script>
+{% endblock %}

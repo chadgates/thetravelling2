@@ -5,25 +5,71 @@
 {% block content %}
     <br>
     <div class="container">
-        <h2>{% trans "Gift basket" %}</h2>
+        <h2>{% trans "Voucher List" %}</h2>
 
-        {% for gift in cartitems %}
+        {% for giftorder in giftorders %}
             <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        {{ gift.amount }} <br>
-                        {{ gift.gift.name }} <br>
-                        {{ gift.gift.price }} <br>
-                        {{ gift.price_total }}
-                    </p>
-                </div>
+            <div class="col-md-12">
+                <h3>{% trans "Voucher Created" %}: {{ giftorder.created}} </h3>
+                <p>{% trans "Name on voucher" %}: {{ giftorder.voucher_from }} <br>
+                {% trans "Voucher Greeting" %}: {{ giftorder.voucher_greeding }}<br>
+                {% trans "Status" %}: {% if giftorder.voucher_issue %} {% trans "Voucher issued" %}
+                                         {% elif giftorder.payment_received %}{% trans "Payment received" %}
+                                         {% else %}{% trans "Voucher order received" %}<br>
+                        <h3>{% trans "Payment instruction" %}</h3>
+                        {% trans "The voucher will be issued after payment receipt." %}<br>
+                        {% trans "Please send your payment as follows:" %} <br>
+                        {% trans "Bank"%}: Zürcher Kantonalbank<br>
+                        {% trans "Account" %}: IBAN CH68 0070 0110 0056 1840 3<br>
+                        {% trans "In favour of" %}: Sibylle Widmer + Marco Zurbriggen<br>
+                {% trans "Total Amount" %}: {{ giftorder.total_price}}<br>
+
+
+
+                                        {% endif %}</p>
 
             </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Picture" %}</th>
+                            <th>{% trans "Gift" %}</th>
+                            <th>{% trans "Quantity" %}</th>
+                            <th>{% trans "Price" %}</th>
+                            <th>{% trans "Total" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for gift in giftorder.giftorderitem_set.all %}
+                        <tr>
+                            <td>
+                                {% if gift.gift.img_miniature %}
+                                <img src="{{ gift.gift.img_miniature.url  }}" alt="Image" class="img-responsive">
+                                {% endif %}
+                               </td>
+                            <td> {{ gift.gift.name }}</td>
+                            <td> {{ gift.quantity }}</td>
+                            <td> {{ gift.price }}</td>
+                            <td> {{ gift.price_total }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+
+
         {% endfor %}
 
     {% if cartitems.count == 0 %}
         <p>
-        {% trans "Your gift basket is empty." %}
+        {% trans "You have not ordered any vouchers." %}
         </p>
     {%  endif %}
     </div>

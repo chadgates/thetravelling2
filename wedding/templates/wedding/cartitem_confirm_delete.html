@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}{% load i18n %}
+{% block title %}{% trans "Delete Gift?" %}{% endblock %}
+
+{% block content %}
+    <br>
+    <form action="" method="post">{% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>
+                        {% trans "Are you sure you want to remove this from your basket:" %}
+                    </h3>
+
+                    <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Picture" %}</th>
+                            <th>{% trans "Gift" %}</th>
+                            <th>{% trans "Quantity" %}</th>
+                            <th>{% trans "Price" %}</th>
+                            <th>{% trans "Total" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {% if cartitem.gift.img_miniature %}
+                                <img src="{{ cartitem.gift.img_miniature.url  }}" alt="Image" class="img-responsive">
+                                {% endif %}
+                               </td>
+                            <td> {{ cartitem.gift.name }}</td>
+                            <td> {{ cartitem.quantity }}</td>
+                            <td> {{ cartitem.gift.price }}</td>
+                            <td> {{ cartitem.price_total }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                </div>
+            </div>
+
+        <input type="submit" class="btn btn-primary" value={% trans "Confirm" %} />
+     <a href="{% url 'wedding:cart-list' %}" class="btn btn-secondary btn-large" role="button" >{% trans "Cancel" %}</a>
+        </div>
+    </form>
+
+{% endblock content %}
