@@ -63,7 +63,7 @@
                     </tbody>
                 </table>
                 </div>
-                <a href="{% url 'wedding:gift-list' %}" class="btn btn-primary">{% trans "Add another" %}</a>
+                <a href="{% url 'wedding:gift-list' %}" class="btn btn-primary">{% trans "Add more gifts" %}</a>
             </div>
         </div>
             <div class="row">
@@ -107,15 +107,51 @@
 
 {% block extra-script %}
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
+
+    <script>
+    function initFormsToPreventSimultaneousSubmits(selector) {
+    if (!selector) {
+        selector = 'form'; // No selector supplied, apply to all forms on the page
+    }
+
+    // Make sure all forms that conform to selector are marked as not submitting
+    $(selector).each(function()
+    {
+        var $form = $(this);
+        $form.data('submitting', false);
+    });
+
+    // Attach to submit event of all forms that conform to selector
+    $(selector).off('submit').on('submit', function (e) {
+        var $form = $(this);
+
+        if (!$form.valid || $form.valid()) { // Make sure to only process when the form is valid or jquery validation is not used
+            if ($form.data('submitting')) {
+                // form is already submitting. Classic case of double click on one of the submit buttons of the form. Stop the submit
+                e.preventDefault();
+                return false;
+            } else {
+                // All ok, mark the form as submitting and let the form perform the submit
+                $form.data('submitting', true);
+                return true;
+            }
+        }
+    });
+}
+    </script>
     <script>
     $(document).ready(function () {
 
-    $('form').each(function () {
+
+{% comment %}    $('form').each(function () {
         $(this).validate({
-            // your options
+        // your options
         });
     });
-
+    $('form').each(initFormsToPreventSimultaneousSubmits()){% endcomment %}
+        initFormsToPreventSimultaneousSubmits()
 });
+
+
 </script>
 {% endblock %}

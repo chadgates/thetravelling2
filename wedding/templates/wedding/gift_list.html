@@ -8,8 +8,8 @@
         <h2>{% trans "Gifts" %}</h2>
     </div>
         {% for gift in gifts %}
+           {% if gift.is_available %}
             <div class="container">
-            {% if gift.is_available %}
             <div class="row">
             {% if user.is_authenticated %}
              <form method="post" action="{% url 'wedding:cart-create' %}">
@@ -26,7 +26,8 @@
                 <div class="col-md-6 col-md-pull-6">
                     <h2>{{ gift.name }}</h2>
                     {% if gift.gift_is_part %}
-                        {% trans "I treat the couple to "%} <input name="quantity" type="number" class="text-right"  min=1 max="{% if gift.total_available %}{{ gift.total_available}}{% else %}{{ gift.avail_parts }}{% endif %}" required="required">  {% trans "of" %} {% if gift.total_taken %}{{ gift.total_taken }}{% else %}{{ gift.taken_parts }}{% endif %}/{{ gift.max_parts }} {% trans "parts of" %} {{ gift.name }}, {% trans " each with the value of CHF"%} {{ gift.price }}.
+                        {% trans "I treat the couple to "%} <input name="quantity" type="number" class="text-right"  min=1 max="{% if gift.total_available %}{{ gift.total_available}}{% else %}{{ gift.avail_parts }}{% endif %}" required="required">  {% trans "of" %} {{ gift.max_parts }} {% trans "parts of" %} {{ gift.name }}, {% trans " each with the value of CHF"%} {{ gift.price }}.
+                        ({% if gift.total_available %}{{ gift.total_available}}{% else %}{{ gift.avail_parts }}{% endif %} {% trans "still available." %})
                     {% else %}
                         {% trans "I treat the couple to "%} {{ gift.name }}, {% trans "with the value of CHF "%} {{ gift.price }}.
                         <input hidden name="quantity" value="1">
@@ -38,6 +39,10 @@
                     {% else %}
                         <a class="btn btn-primary" href="{% url 'account_login' %}" role="button">{% trans "Log-In to grant this wish" %}</a>
                     {% endif %}
+
+                {% if perms.wedding.change_gift %}
+                    <br><a href={% url 'wedding:gift-update' gift.id%} class="btn btn-primary btn-large" role="button" > {% trans "Edit" %} </a>
+                {% endif %}
                 </div>
 
             {% if user.is_authenticated %}
@@ -45,21 +50,25 @@
             {% endif %}
 
             </div>
-
+            </div>
+               <div class="row" style="background-color: lightgray; height: 2px; margin-top: 10px; margin-bottom: 10px">
+               </div>
             {% endif %}
-            </div>
-            </div>
-            <div class="row" style="background-color: lightgray; height: 2px; margin-top: 10px; margin-bottom: 10px">
-            </div>
 
         {% endfor %}
     <div class="container">
+
     {% if gifts.count == 0 %}
         <p>
-        {% trans "No gifts exists yet. Create one to get started." %}
+        {% trans "No gifts exists yet." %}
         </p>
-         <a href={% url 'wedding:gift-create' %} class="btn btn-primary btn-large" role="button" > {% trans "Add new" %} </a>
     {%  endif %}
+
+    {% if perms.wedding.add_gift %}
+        <a href={% url 'wedding:gift-create' %} class="btn btn-primary btn-large" role="button" > {% trans "Add new gift" %} </a>
+    {% endif %}
+
+
     </div>
 {% endblock content %}
 

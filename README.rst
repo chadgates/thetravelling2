@@ -122,3 +122,6 @@ django-admin makemessages -l de -e html,txt,py
 
 wedding:
 django-admin makemessages -l de -e html,txt,py
+
+homepage:
+django-admin makemessages -l de -e html,txt,py

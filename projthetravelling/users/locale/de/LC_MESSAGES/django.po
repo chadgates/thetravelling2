@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 14:09+0100\n"
+"POT-Creation-Date: 2017-04-13 21:36+0200\n"
 "PO-Revision-Date: 2017-02-14 14:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,46 +18,46 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.11\n"
 
-#: forms.py:16
+#: users/forms.py:16
 msgid "Name"
 msgstr "Name"
 
-#: forms.py:16
+#: users/forms.py:16
 msgid "Name, Surname"
 msgstr "Name, Vorname"
 
-#: forms.py:18 models.py:17
+#: users/forms.py:18 users/models.py:17
 msgid "Street 1"
 msgstr "Strasse 1"
 
-#: forms.py:18 forms.py:20
+#: users/forms.py:18 users/forms.py:20
 msgid "Street and House Number"
 msgstr "Strasse und Hausnummer"
 
-#: forms.py:20 models.py:18
+#: users/forms.py:20 users/models.py:18
 msgid "Street 2"
 msgstr "Strasse 2"
 
-#: forms.py:22 models.py:19
+#: users/forms.py:22 users/models.py:19
 msgid "ZIP Code"
 msgstr "PLZ"
 
-#: forms.py:24 models.py:20
+#: users/forms.py:24 users/models.py:20
 msgid "City"
 msgstr "Stadt"
 
-#: forms.py:24
+#: users/forms.py:24
 msgid "City Name, State"
 msgstr "Stadt"
 
-#: forms.py:26 models.py:21
+#: users/forms.py:26 users/models.py:21
 msgid "Country"
 msgstr "Land"
 
-#: models.py:16
+#: users/models.py:16
 msgid "Name of User"
 msgstr "Name"
 
-#: models.py:22
+#: users/models.py:22
 msgid "Phone"
 msgstr "Telefon"

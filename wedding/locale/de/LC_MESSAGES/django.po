@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-13 18:17+0200\n"
-"PO-Revision-Date: 2017-04-13 18:33+0200\n"
+"POT-Creation-Date: 2017-04-13 20:27+0200\n"
+"PO-Revision-Date: 2017-04-13 20:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -105,7 +105,7 @@ msgstr "Der Gutschein wird nach dem Zahlungseingang ausgestellt."
 
 #: models.py:118
 msgid "Please send your payment as follows: "
-msgstr "Bitte bezahlen Sie wie folgt:"
+msgstr "Bitte überweisen Sie ihre Zahlung wie folgt: "
 
 #: models.py:119 templates/wedding/giftorder_list.html:22
 msgid "Bank"
@@ -192,8 +192,8 @@ msgid "Action"
 msgstr "Aktion"
 
 #: templates/wedding/cartitem_list.html:66
-msgid "Add another"
-msgstr "Weiteres hinzufügen"
+msgid "Add more gifts"
+msgstr "Weiteres Geschenk hinzufügen"
 
 #: templates/wedding/cartitem_list.html:79
 msgid "Voucher Detail"
@@ -241,9 +241,9 @@ msgstr "Hinzufügen"
 
 #: templates/wedding/gift_list.html:3 templates/wedding/gift_list.html:8
 msgid "Gifts"
-msgstr "Wünsche"
+msgstr "Wunschliste"
 
-#: templates/wedding/gift_list.html:29 templates/wedding/gift_list.html:31
+#: templates/wedding/gift_list.html:29 templates/wedding/gift_list.html:32
 msgid "I treat the couple to "
 msgstr "Ich schenke"
 
@@ -259,27 +259,31 @@ msgstr "Anteilen von "
 msgid " each with the value of CHF"
 msgstr "im Wert von je CHF"
 
-#: templates/wedding/gift_list.html:31
+#: templates/wedding/gift_list.html:30
+msgid "still available."
+msgstr "noch verfügbar."
+
+#: templates/wedding/gift_list.html:32
 msgid "with the value of CHF "
 msgstr "im Wert von CHF "
 
-#: templates/wedding/gift_list.html:37
+#: templates/wedding/gift_list.html:38
 msgid "Grant wish"
 msgstr "Wunsch erfüllen"
 
-#: templates/wedding/gift_list.html:37
+#: templates/wedding/gift_list.html:38
 msgid "already in your gift basket."
 msgstr "bereits im Geschenkkorb"
 
-#: templates/wedding/gift_list.html:39
+#: templates/wedding/gift_list.html:40
 msgid "Log-In to grant this wish"
 msgstr "Bitte einloggen um einen Wunsch zu erfüllen"
 
-#: templates/wedding/gift_list.html:59
+#: templates/wedding/gift_list.html:58
 msgid "No gifts exists yet. Create one to get started."
 msgstr "Es gibt noch keine Geschenke. Legen Sie eines an."
 
-#: templates/wedding/gift_list.html:61
+#: templates/wedding/gift_list.html:60
 msgid "Add new"
 msgstr "Hinzufügen"
 
@@ -366,3 +370,6 @@ msgstr "Dem Geschenkkorb hinzugefügt"
 #: views.py:212
 msgid "Successfully sent a gift basket"
 msgstr "Erfolgreich den Geschenkkorb versendet"
+
+#~ msgid "Add another"
+#~ msgstr "Weiteres hinzufügen"

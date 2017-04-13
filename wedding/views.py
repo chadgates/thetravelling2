@@ -11,7 +11,7 @@ from .models import Rsvp, Gift, GiftOrder, GiftOrderItem, CartItem
 from .forms import RsvpForm, CartItemForm, GiftOrderForm
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum, F, DecimalField
 from django.shortcuts import redirect

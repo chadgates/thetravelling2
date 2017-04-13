@@ -49,11 +49,12 @@ urlpatterns = [
         name='gift-update',
     ),
     # URL pattern for the DeleteView
-    url(
-        regex=r'^gift/(?P<pk>[\w\-]+)/delete/$',
-        view=wedding_views.GiftDelete.as_view(),
-        name='gift-delete',
-    ),
+
+    #url(
+    #    regex=r'^gift/(?P<pk>[\w\-]+)/delete/$',
+    #    view=wedding_views.GiftDelete.as_view(),
+    #    name='gift-delete',
+    #),
     # URL pattern for the Listview
     url(
         regex=r'^gift/$',
