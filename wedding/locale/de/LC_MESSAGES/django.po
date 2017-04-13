@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 14:22+0100\n"
-"PO-Revision-Date: 2017-02-14 14:24+0100\n"
+"POT-Creation-Date: 2017-04-13 18:17+0200\n"
+"PO-Revision-Date: 2017-04-13 18:33+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -26,21 +26,305 @@ msgstr "Kann leider nicht teilnehmen."
 msgid "Accepts with Pleasure. I will be accompanied by:"
 msgstr "Nehme gerne teil. Ich werde begleitet von:"
 
-#: forms.py:24 models.py:15 templates/wedding/rsvp_detail.html:18
+#: forms.py:24 models.py:30 templates/wedding/rsvp_detail.html:18
 #: templates/wedding/rsvp_detail.html:29
 msgid "Attendance"
 msgstr "Teilnahme"
 
-#: models.py:16 models.py:17 models.py:18
+#: models.py:31 models.py:32 models.py:33
 msgid "Name, Surname"
 msgstr "Name, Vorname"
+
+#: models.py:51 templates/wedding/gift_detail.html:13
+msgid "Name"
+msgstr "Name\t"
+
+#: models.py:52 templates/wedding/gift_detail.html:14
+msgid "Description"
+msgstr "Bezeichnung"
+
+#: models.py:53 templates/wedding/gift_detail.html:15
+msgid "Link"
+msgstr "Link"
+
+#: models.py:54 models.py:142
+#: templates/wedding/cartitem_confirm_delete.html:22
+#: templates/wedding/cartitem_list.html:34
+#: templates/wedding/gift_detail.html:16
+#: templates/wedding/giftorder_list.html:43
+msgid "Price"
+msgstr "Preis"
+
+#: models.py:55 templates/wedding/gift_detail.html:17
+msgid "Gift is part"
+msgstr "Wunsch in Teilen"
+
+#: models.py:56 templates/wedding/gift_detail.html:18
+msgid "Maximum number of parts"
+msgstr "Maximale Anzahl Teile"
+
+#: models.py:57 templates/wedding/gift_detail.html:19
+msgid "Number of parts taken"
+msgstr "Bezogene Anzahl Teile"
+
+#: models.py:90
+msgid "Voucher is from"
+msgstr "Gutschein geschenkt von"
+
+#: models.py:91 templates/wedding/giftorder_list.html:15
+msgid "Voucher Greeting"
+msgstr "Glückwunsch an das Paar"
+
+#: models.py:92
+msgid "Send voucher directly"
+msgstr "Direkt versenden"
+
+#: models.py:93 templates/wedding/giftorder_list.html:17
+msgid "Payment received"
+msgstr "Zahlung erhalten. Vielen Dank!"
+
+#: models.py:94 templates/wedding/giftorder_list.html:16
+msgid "Voucher issued"
+msgstr "Gutschein ausgestellt"
+
+#: models.py:95
+msgid "Total price"
+msgstr "Total Betrag"
+
+#: models.py:116
+msgid ""
+"Thank you so much for ordering a voucher and helping the couple to make "
+"their dream come true!"
+msgstr ""
+"Vielen Dank für die Bestellung eines Gutscheins und dafür, dem Paar ihre "
+"Träume zu erfüllen!"
+
+#: models.py:117 templates/wedding/giftorder_list.html:20
+msgid "The voucher will be issued after payment receipt."
+msgstr "Der Gutschein wird nach dem Zahlungseingang ausgestellt."
+
+#: models.py:118
+msgid "Please send your payment as follows: "
+msgstr "Bitte bezahlen Sie wie folgt:"
+
+#: models.py:119 templates/wedding/giftorder_list.html:22
+msgid "Bank"
+msgstr "Bank"
+
+#: models.py:120 templates/wedding/giftorder_list.html:23
+msgid "Account"
+msgstr "Konto"
+
+#: models.py:121 templates/wedding/giftorder_list.html:24
+msgid "In favour of"
+msgstr "Zur Gunsten von"
+
+#: models.py:122
+msgid "Amount"
+msgstr "Betrag"
+
+#: models.py:141 models.py:159
+msgid "Item count"
+msgstr "Anzahl"
+
+#: templates/wedding/cartitem_confirm_delete.html:3
+#: templates/wedding/gift_confirm_delete.html:4
+msgid "Delete Gift?"
+msgstr "Geschenk löschen?"
+
+#: templates/wedding/cartitem_confirm_delete.html:12
+msgid "Are you sure you want to remove this from your basket:"
+msgstr ""
+"Sind sie sicher, dass sie dies aus ihrem Geschenkkorb entfernen möchten ? "
+
+#: templates/wedding/cartitem_confirm_delete.html:19
+#: templates/wedding/cartitem_list.html:31
+#: templates/wedding/gift_detail.html:20
+#: templates/wedding/giftorder_list.html:40
+msgid "Picture"
+msgstr "Bild"
+
+#: templates/wedding/cartitem_confirm_delete.html:20
+#: templates/wedding/cartitem_list.html:32
+#: templates/wedding/giftorder_list.html:41
+msgid "Gift"
+msgstr "Geschenk"
+
+#: templates/wedding/cartitem_confirm_delete.html:21
+#: templates/wedding/cartitem_list.html:33
+#: templates/wedding/giftorder_list.html:42
+msgid "Quantity"
+msgstr "Menge"
+
+#: templates/wedding/cartitem_confirm_delete.html:23
+#: templates/wedding/cartitem_list.html:35
+#: templates/wedding/giftorder_list.html:44
+msgid "Total"
+msgstr "Total"
+
+#: templates/wedding/cartitem_confirm_delete.html:44
+#: templates/wedding/gift_confirm_delete.html:11
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: templates/wedding/cartitem_confirm_delete.html:45
+#: templates/wedding/gift_confirm_delete.html:12
+#: templates/wedding/gift_form.html:20
+msgid "Cancel"
+msgstr "Abbruch"
+
+#: templates/wedding/cartitem_list.html:4
+#: templates/wedding/cartitem_list.html:13
+#: templates/wedding/giftorder_list.html:3
+msgid "Gift basket"
+msgstr "Geschenkkorb"
+
+#: templates/wedding/cartitem_list.html:18
+msgid "Your gift basket is empty."
+msgstr "Ihr Geschenkkorb ist leer."
+
+#: templates/wedding/cartitem_list.html:20
+msgid "Add a gift"
+msgstr "Geschenk hinzufügen"
+
+#: templates/wedding/cartitem_list.html:36
+msgid "Action"
+msgstr "Aktion"
+
+#: templates/wedding/cartitem_list.html:66
+msgid "Add another"
+msgstr "Weiteres hinzufügen"
+
+#: templates/wedding/cartitem_list.html:79
+msgid "Voucher Detail"
+msgstr "Gutschein Detail"
+
+#: templates/wedding/cartitem_list.html:82
+msgid "State the names from whom this voucher is from:"
+msgstr "Gutschein wird geschenkt von (bitte Namen ergänzen):"
+
+#: templates/wedding/cartitem_list.html:88
+msgid "Do you wish to add a special greeting on the voucher?"
+msgstr "Möchten Sie einen Glückwunsch für das Brautpaar auf dem Gutschein?"
+
+#: templates/wedding/cartitem_list.html:93
+msgid ""
+"Please send the voucher directly to the couple, I cannot make it to the "
+"wedding."
+msgstr ""
+"Ich werde die Hochzeit nicht besuchen, bitte den Gutschein direkt an das "
+"Brautpaar versenden."
+
+#: templates/wedding/cartitem_list.html:96
+msgid "Request Coupon"
+msgstr "Gutschein bestellen"
+
+#: templates/wedding/gift_confirm_delete.html:10
+msgid "Are you sure you want to delete"
+msgstr "Sind sie sicher, dass sie löschen möchten"
+
+#: templates/wedding/gift_detail.html:30
+msgid "Change"
+msgstr "Ändern"
+
+#: templates/wedding/gift_detail.html:31
+msgid "Delete"
+msgstr "Löschen"
+
+#: templates/wedding/gift_form.html:15
+msgid "Save"
+msgstr "Speichern"
+
+#: templates/wedding/gift_form.html:17
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: templates/wedding/gift_list.html:3 templates/wedding/gift_list.html:8
+msgid "Gifts"
+msgstr "Wünsche"
+
+#: templates/wedding/gift_list.html:29 templates/wedding/gift_list.html:31
+msgid "I treat the couple to "
+msgstr "Ich schenke"
+
+#: templates/wedding/gift_list.html:29
+msgid "of"
+msgstr "von "
+
+#: templates/wedding/gift_list.html:29
+msgid "parts of"
+msgstr "Anteilen von "
+
+#: templates/wedding/gift_list.html:29
+msgid " each with the value of CHF"
+msgstr "im Wert von je CHF"
+
+#: templates/wedding/gift_list.html:31
+msgid "with the value of CHF "
+msgstr "im Wert von CHF "
+
+#: templates/wedding/gift_list.html:37
+msgid "Grant wish"
+msgstr "Wunsch erfüllen"
+
+#: templates/wedding/gift_list.html:37
+msgid "already in your gift basket."
+msgstr "bereits im Geschenkkorb"
+
+#: templates/wedding/gift_list.html:39
+msgid "Log-In to grant this wish"
+msgstr "Bitte einloggen um einen Wunsch zu erfüllen"
+
+#: templates/wedding/gift_list.html:59
+msgid "No gifts exists yet. Create one to get started."
+msgstr "Es gibt noch keine Geschenke. Legen Sie eines an."
+
+#: templates/wedding/gift_list.html:61
+msgid "Add new"
+msgstr "Hinzufügen"
+
+#: templates/wedding/giftorder_list.html:8
+msgid "Voucher List"
+msgstr "Gutschein Liste"
+
+#: templates/wedding/giftorder_list.html:13
+msgid "Voucher Created"
+msgstr "Gutschein erstellt"
+
+#: templates/wedding/giftorder_list.html:14
+msgid "Name on voucher"
+msgstr "Name auf dem Gutschein"
+
+#: templates/wedding/giftorder_list.html:16
+msgid "Status"
+msgstr "Status"
+
+#: templates/wedding/giftorder_list.html:18
+msgid "Voucher order received"
+msgstr "Gutschein Bestellung erhalten"
+
+#: templates/wedding/giftorder_list.html:19
+msgid "Payment instruction"
+msgstr "Zahlungsinstruktion"
+
+#: templates/wedding/giftorder_list.html:21
+msgid "Please send your payment as follows:"
+msgstr "Bitte überweisen Sie ihre Zahlung wie folgt:"
+
+#: templates/wedding/giftorder_list.html:25
+msgid "Total Amount"
+msgstr "Totalbetrag"
+
+#: templates/wedding/giftorder_list.html:72
+msgid "You have not ordered any vouchers."
+msgstr "Sie haben noch keinen Gutschein bestellt. "
 
 #: templates/wedding/rsvp_detail.html:18
 msgid "Yes, is attending"
 msgstr "Ja, ist dabei"
 
 #: templates/wedding/rsvp_detail.html:20 templates/wedding/rsvp_detail.html:23
-#: templates/wedding/rsvp_detail.html:26
+#: templates/wedding/rsvp_detail.html:26 templates/wedding/rsvp_list.html:20
 msgid "Additional Guest"
 msgstr "Zusätzlicher Gast"
 
@@ -62,3 +346,23 @@ msgstr "Editieren"
 #: templates/wedding/rsvp_form.html:19
 msgid "Update"
 msgstr "Aktualisieren"
+
+#: views.py:139
+msgid "Created"
+msgstr "Erstellt"
+
+#: views.py:150 views.py:200
+msgid "Saved"
+msgstr "Gespeichert"
+
+#: views.py:161 views.py:206
+msgid "Deleted"
+msgstr "Gelöscht"
+
+#: views.py:187
+msgid "Added to Giftbasket"
+msgstr "Dem Geschenkkorb hinzugefügt"
+
+#: views.py:212
+msgid "Successfully sent a gift basket"
+msgstr "Erfolgreich den Geschenkkorb versendet"
