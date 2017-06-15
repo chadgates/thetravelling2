@@ -10,31 +10,31 @@
         {% for giftorder in giftorders %}
             <div class="row">
             <div class="col-md-12">
-                <h3>{% trans "Voucher Created" %}: {{ giftorder.created}} </h3>
-                <p>{% trans "Name on voucher" %}: {{ giftorder.voucher_from }} <br>
-                {% trans "Voucher Greeting" %}: {{ giftorder.voucher_greeding }}<br>
-                {% trans "Status" %}: {% if giftorder.voucher_issue %} {% trans "Voucher issued" %}
-                                         {% elif giftorder.payment_received %}{% trans "Payment received" %}
-                                         {% else %}{% trans "Voucher order received" %}<br>
-                        <h3>{% trans "Payment instruction" %}</h3>
-                        {% trans "The voucher will be issued after payment receipt." %}<br>
-                        {% trans "Please send your payment as follows:" %} <br>
-                        {% trans "Bank"%}: Zürcher Kantonalbank<br>
-                        {% trans "Account" %}: IBAN CH68 0070 0110 0056 1840 3<br>
-                        {% trans "In favour of" %}: Sibylle Widmer + Marco Zurbriggen<br>
-                {% trans "Total Amount" %}: {{ giftorder.total_price}}<br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>{% trans "Voucher Created" %}: {{ giftorder.created}} </h3>
+                </div>
+            <div class="panel-body">
+                    <p>{% trans "Name on voucher" %}: {{ giftorder.voucher_from }}<br>
+                    {% trans "Voucher Greeting" %}: {{ giftorder.voucher_greeting }}<br>
+                    {% trans "Status" %}: {% if giftorder.voucher_issue %}
+                                                {% trans "Voucher issued" %}
+                                         {% elif giftorder.payment_received %}
+                                                {% trans "Payment received" %}
+                                         {% else %}
+                                                {% trans "Voucher order received" %}<br>
+                                                <h3>{% trans "Payment instruction" %}</h3>
+                                                {% trans "The voucher will be issued after payment receipt." %}<br>
+                                                {% trans "Please send your payment as follows:" %} <br>
+                                                {% trans "Bank"%}: Zürcher Kantonalbank<br>
+                                                {% trans "Account" %}: IBAN CH68 0070 0110 0056 1840 3<br>
+                                                {% trans "In favour of" %}: Sibylle Widmer + Marco Zurbriggen<br>
+                                                {% trans "Total Amount" %}: {{ giftorder.total_price}}<br>
+                                        {% endif %}
+                    </p>
 
-
-
-                                        {% endif %}</p>
-
-            </div>
-            </div>
-
-            <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                <table class="table table-hover">
+                    <div class="table-responsive">
+                    <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>{% trans "Picture" %}</th>
@@ -59,11 +59,12 @@
                         </tr>
                     {% endfor %}
                     </tbody>
-                </table>
+                    </table>
+                    </div>
                 </div>
             </div>
-        </div>
-
+            </div>
+            </div>
 
         {% endfor %}
 

@@ -14,7 +14,7 @@ urlpatterns = [
 #    ),
     # URL pattern for the RSVP Detail
     url(
-        regex=r'^rsvps/(?P<username>[\w\-]+)/$',
+        regex=r'^rsvps/(?P<username>[\w.@+-]+)/$',
         view=wedding_views.RsvpDetail.as_view(),
         name='rsvp-detail',
     ),
@@ -106,6 +106,27 @@ urlpatterns = [
         regex=r'^order/$',
         view=wedding_views.GiftOrderList.as_view(),
         name='order-list',
+    ),
+
+    # ORDERSTATUS
+    # ***************
+
+    url(
+        regex=r'^orderstatus/(?P<pk>[\w\-]+)/$',
+        view=wedding_views.OrderStatusDetail.as_view(),
+        name='orderstatus-detail',
+    ),
+    # URL pattern for the UpdateView
+    url(
+        regex=r'^orderstatus/(?P<pk>[\w\-]+)/update/$',
+        view=wedding_views.OrderStatusUpdate.as_view(),
+        name='orderstatus-update',
+    ),
+
+    url(
+        regex=r'^orderstatus/$',
+        view=wedding_views.OrderStatusList.as_view(),
+        name='orderstatus-list',
     ),
 
 ]

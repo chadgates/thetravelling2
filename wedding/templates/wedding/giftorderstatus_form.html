@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}{% load i18n %}{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Voucher Detail" %}{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="container">
+        <h2>{% trans "Voucher Detail" %}</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>{% trans "Voucher Created" %}: {{ giftorder.created}} </h4>
+                            <h4>{{ giftorder.user.name }}</h4>
+                        </div>
+                     <div class="panel-body">
+                            <p> {% trans "Name on voucher" %}: {{ giftorder.voucher_from }} <br>
+                            {% trans "Total Amount" %}: {{ giftorder.total_price}}<br>
+                        </p>
+                        <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Picture" %}</th>
+                                    <th>{% trans "Gift" %}</th>
+                                    <th>{% trans "Quantity" %}</th>
+                                    <th>{% trans "Price" %}</th>
+                                    <th>{% trans "Total" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for gift in giftorder.giftorderitem_set.all %}
+                                <tr>
+                                    <td>
+                                        {% if gift.gift.img_miniature %}
+                                        <img src="{{ gift.gift.img_miniature.url  }}" alt="Image" class="img-responsive">
+                                        {% endif %}
+                                       </td>
+                                    <td> {{ gift.gift.name }}</td>
+                                    <td> {{ gift.quantity }}</td>
+                                    <td> {{ gift.price }}</td>
+                                    <td> {{ gift.price_total }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <form method="post" action="{% url 'wedding:orderstatus-update' giftorder.id %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+                <a class="btn btn-default" href="{% url 'wedding:orderstatus-list' %}" role="button">{% trans "Show List" %}</a>
+            </div>
+            </div>
+        </form>
+
+    </div>
+{% endblock content %}

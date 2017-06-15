@@ -5,9 +5,9 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.generic.detail import SingleObjectTemplateResponseMixin
 from django.views.generic.edit import ModelFormMixin, ProcessFormView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import DetailView, UpdateView, ListView, CreateView, DeleteView
-from .models import Rsvp, Gift, GiftOrder, GiftOrderItem, CartItem
+from .models import Rsvp, Gift, GiftOrder, GiftOrderItem, CartItem, GiftOrderStatus
 from .forms import RsvpForm, CartItemForm, GiftOrderForm
 from django.core.urlresolvers import reverse
 from django.contrib import messages
@@ -15,6 +15,7 @@ from django.utils.translation import gettext as _
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum, F, DecimalField
 from django.shortcuts import redirect
+from decimal import Decimal
 
 # Source: http://stackoverflow.com/questions/17192737/django-class-based-view-for-both-create-and-update
 class CreateUpdateView(SingleObjectTemplateResponseMixin, ModelFormMixin,
@@ -78,7 +79,7 @@ class RsvpDetail(LoginRequiredMixin, DetailView):
         return obj
 
 
-class RsvpList(LoginRequiredMixin, ListView):
+class RsvpList(PermissionRequiredMixin, ListView):
     permission_required = 'rsvp.view_list'
     model = Rsvp
     context_object_name = 'rsvp_list'
@@ -213,8 +214,39 @@ class GiftOrderCreate(LoginRequiredMixin, GiftViewMixin, CreateView):
     success_url = reverse_lazy('wedding:order-list')
     form_class = GiftOrderForm
 
+    def get_form_kwargs(self):
+        kwargs = super(GiftOrderCreate, self).get_form_kwargs()  # put your view name in the super
+        user = self.request.user
+
+        if user:
+            kwargs['user'] = user
+
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        new_giftorder = form.save(commit=False)
+        calc_total = Decimal('0.00')
+
+        mycart = CartItem.objects.filter(user=self.request.user)
+
+        for item in mycart:
+            calc_total = calc_total + (item.quantity * item.gift.price)
+
+        new_giftorder.total_price = calc_total
+        new_giftorder.user = self.request.user
+
+        new_giftorder.save()
+        form.save_m2m()
+
+        for item in mycart:
+            newitem = GiftOrderItem(gift=item.gift, quantity=item.quantity, giftorder=new_giftorder, price=item.gift.price)
+            newitem.save()
+            gift = Gift.objects.get(id=item.gift.id)
+            gift.taken_parts += item.quantity
+            gift.save()
+            item.delete()
+
+        form.send_giftorder_mail(total_price=calc_total, user=self.request.user)
         return super(GiftOrderCreate, self).form_valid(form)
 
 
@@ -225,3 +257,23 @@ class GiftOrderList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return GiftOrder.objects.filter(user=self.request.user)
 
+
+class OrderStatusList(PermissionRequiredMixin, ListView):
+    permission_required = 'rsvp.view_list'
+    context_object_name = 'giftorders'
+    model = GiftOrderStatus
+
+
+class OrderStatusDetail(PermissionRequiredMixin, DetailView):
+    permission_required = 'rsvp.view_list'
+    context_object_name = 'giftorder'
+    model = GiftOrderStatus
+
+
+class OrderStatusUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = 'rsvp.view_list'
+    model = GiftOrderStatus
+    context_object_name = 'giftorder'
+    success_msg = _("Saved")
+    fields = ['payment_received',
+              'voucher_issued']

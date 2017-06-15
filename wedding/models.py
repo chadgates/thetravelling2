@@ -10,9 +10,10 @@ from django.core.urlresolvers import reverse
 import uuid
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFit, ResizeCanvas, ResizeToFill
-from django.core.mail import send_mail
-from allauth.account.utils import user_email
-from decimal import Decimal
+# from django.core.mail import send_mail
+# from allauth.account.utils import user_email
+# from decimal import Decimal
+
 
 class TimeStampedModel(models.Model):
     # Abstract base class model that provides self-updating created and modified fields
@@ -96,43 +97,43 @@ class GiftOrder(TimeStampedModel):
     total_price = models.DecimalField(verbose_name=_('Total price'), max_digits=10, decimal_places=2, default=0.00)
 
 
-    def save(self, *args, **kwargs):
-        calc_total = Decimal('0.00')
-        mycart = CartItem.objects.filter(user=self.user)
-        for item in mycart:
-            calc_total = calc_total + (item.quantity * item.gift.price)
-
-        self.total_price = calc_total
-
-        super(GiftOrder, self).save(*args, **kwargs)
-
-        for item in mycart:
-            newitem = GiftOrderItem(gift=item.gift, quantity=item.quantity, giftorder=self, price=item.gift.price)
-            newitem.save()
-            gift = Gift.objects.get(id=item.gift.id)
-            gift.taken_parts += item.quantity
-            gift.save()
-            item.delete()
-
-        messagetext = _("Thank you so much for ordering a voucher and helping the couple to make their dream come true!") + "\n\n"
-        messagetext += _("The voucher will be issued after payment receipt.") + "\n\n"
-        messagetext += _("Please send your payment as follows: ") + "\n\n"
-        messagetext += _("Bank") + ": Zürcher Kantonalbank" + "\n"
-        messagetext += _("Account") +  ": IBAN CH68 0070 0110 0056 1840 3\n"
-        messagetext += _("In favour of") + ": Sibylle Widmer + Marco Zurbriggen\n"
-        messagetext += _("Amount") + ": " + self.total_price.__str__() + "\n\n"
-
-        try:
-            send_mail(subject="The Travelling 2 - Voucher Order",
-                      message=messagetext,
-                      from_email="donotreply@thetravelling2.com",
-                      recipient_list=[user_email(self.user)],
-                      )
-        except:
-            pass
+    # def save(self, *args, **kwargs):
+    #     calc_total = Decimal('0.00')
+    #     mycart = CartItem.objects.filter(user=self.user)
+    #     for item in mycart:
+    #         calc_total = calc_total + (item.quantity * item.gift.price)
+    #
+    #     self.total_price = calc_total
+    #
+    #     super(GiftOrder, self).save(*args, **kwargs)
+    #
+    #     for item in mycart:
+    #         newitem = GiftOrderItem(gift=item.gift, quantity=item.quantity, giftorder=self, price=item.gift.price)
+    #         newitem.save()
+    #         gift = Gift.objects.get(id=item.gift.id)
+    #         gift.taken_parts += item.quantity
+    #         gift.save()
+    #         item.delete()
+    #
+    #     messagetext = _("Thank you so much for ordering a voucher and helping the couple to make their dream come true!") + "\n\n"
+    #     messagetext += _("The voucher will be issued after payment receipt.") + "\n\n"
+    #     messagetext += _("Please send your payment as follows: ") + "\n\n"
+    #     messagetext += _("Bank") + ": Zürcher Kantonalbank" + "\n"
+    #     messagetext += _("Account") +  ": IBAN CH68 0070 0110 0056 1840 3\n"
+    #     messagetext += _("In favour of") + ": Sibylle Widmer + Marco Zurbriggen\n"
+    #     messagetext += _("Amount") + ": " + self.total_price.__str__() + "\n\n"
+    #
+    #     try:
+    #         send_mail(subject="The Travelling 2 - Voucher Order",
+    #                   message=messagetext,
+    #                   from_email="donotreply@thetravelling2.com",
+    #                   recipient_list=[user_email(self.user)],
+    #                   )
+    #     except:
+    #         pass
 
     def __str__(self):
-        return self.id.__str__() + ": " + self.user.name
+        return self.user.name + "/" + "{:%Y/%m/%d}".format(self.created) + "/" + self.total_price.__str__()
 
 
 class GiftOrderItem(TimeStampedModel):
@@ -169,3 +170,11 @@ class CartItem(TimeStampedModel):
 
     def __str__(self):
         return self.gift.name + " " + self.id.__str__()
+
+
+class GiftOrderStatus(GiftOrder):
+    class Meta:
+        proxy = True
+
+    def get_absolute_url(self):
+        return reverse("wedding:orderstatus-detail", kwargs={'pk': self.pk})
