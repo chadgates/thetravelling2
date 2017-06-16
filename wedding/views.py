@@ -80,7 +80,7 @@ class RsvpDetail(LoginRequiredMixin, DetailView):
 
 
 class RsvpList(PermissionRequiredMixin, ListView):
-    permission_required = 'rsvp.view_list'
+    permission_required = 'wedding.view_list'
     model = Rsvp
     context_object_name = 'rsvp_list'
     form_class = RsvpForm
@@ -259,19 +259,19 @@ class GiftOrderList(LoginRequiredMixin, ListView):
 
 
 class OrderStatusList(PermissionRequiredMixin, ListView):
-    permission_required = 'rsvp.view_list'
+    permission_required = 'wedding.view_list'
     context_object_name = 'giftorders'
     model = GiftOrderStatus
 
 
 class OrderStatusDetail(PermissionRequiredMixin, DetailView):
-    permission_required = 'rsvp.view_list'
+    permission_required = 'wedding.view_list'
     context_object_name = 'giftorder'
     model = GiftOrderStatus
 
 
 class OrderStatusUpdate(PermissionRequiredMixin, UpdateView):
-    permission_required = 'rsvp.view_list'
+    permission_required = 'wedding.view_list'
     model = GiftOrderStatus
     context_object_name = 'giftorder'
     success_msg = _("Saved")
