@@ -264,6 +264,28 @@ class OrderStatusList(PermissionRequiredMixin, ListView):
     model = GiftOrderStatus
 
 
+    def get_queryset(self):
+        # Fetch the queryset from the parent get_queryset
+        queryset = super(OrderStatusList, self).get_queryset()
+        sel_payment = self.request.GET.get("sel1")
+        sel_voucher = self.request.GET.get("sel2")
+        sel_direct = self.request.GET.get("sel3")
+
+        if sel_payment in ('received', 'open'):
+            sel_payment = (sel_payment == 'received')
+            queryset = queryset.filter(payment_received = sel_payment)
+
+        if sel_voucher in ('issued', 'pending'):
+            sel_voucher = ( sel_voucher == 'issued')
+            queryset = queryset.filter(voucher_issued = sel_voucher)
+
+        if sel_direct in ('send direct', 'send to user'):
+            sel_direct = (sel_direct == 'send direct')
+            queryset = queryset.filter(voucher_senddirect = sel_direct)
+
+        return queryset.order_by('-created')
+
+
 class OrderStatusDetail(PermissionRequiredMixin, DetailView):
     permission_required = 'wedding.view_list'
     context_object_name = 'giftorder'

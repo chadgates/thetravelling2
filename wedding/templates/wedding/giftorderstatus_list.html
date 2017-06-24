@@ -6,6 +6,40 @@
     <br>
     <div class="container">
         <h2>{% trans "Voucher List" %}</h2>
+        <div class = "row">
+            <div class="col-md-12">
+            <form class="form-inline" action="{% url 'wedding:orderstatus-list' %}" method="get">
+                <div class="form-group">
+                  <label for="sel1" class="control-label" >Payment:</label>
+                  <select class="form-control" id="sel1" name="sel1">
+                    <option value="all" {% if request.GET.sel1 == 'all' %}selected{% endif %}>all</option>
+                    <option value="received" {% if request.GET.sel1 == 'received' %}selected{% endif %}>received</option>
+                    <option value="open" {% if request.GET.sel1 == 'open' %}selected{% endif %}>open</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                <label for="sel2" class="control-label">Voucher:</label>
+                 <select class="form-control" id="sel2" name="sel2">
+                    <option value="all" {% if request.GET.sel2 == 'all' %}selected{% endif %}>all</option>
+                    <option value="issued" {% if request.GET.sel2 == 'issued' %}selected{% endif %}>issued</option>
+                    <option value="pending" {% if request.GET.sel2 == 'pending' %}selected{% endif %}>pending</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                 <label for="sel3" class="control-label">Delivery:</label>
+                 <select class="form-control" id="sel3" name="sel3">
+                    <option value="all" {% if request.GET.sel3 == 'all' %}selected{% endif %}>all</option>
+                    <option value="send direct" {% if request.GET.sel3 == 'send direct' %}selected{% endif %}>send direct</option>
+                    <option value="send to user" {% if request.GET.sel3 == 'send to user' %}selected{% endif %}>send to user</option>
+                  </select>
+                </div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-default">Filter</button>
+              </div>
+            </form>
+            </div>
+        </div>
+    <div class="row" style="padding: 10px" ></div>
         {% for giftorder in giftorders %}
             <div class="row">
                 <div class="col-md-12">
@@ -13,6 +47,23 @@
                         <div class="panel-heading">
                             <h4>{% trans "Voucher Created" %}: {{ giftorder.created}} </h4>
                             <h4>{{ giftorder.user.name }}</h4>
+                                  <p>
+                                  {% if giftorder.user.street1 %}
+                                    {{ giftorder.user.street1 }}<br>
+                                  {% endif %}
+                                  {% if giftorder.user.street2 %}
+                                    {{ giftorder.user.street2 }}<br>
+                                  {% endif %}
+                                  {% if giftorder.user.zipcode or giftorder.user.city %}
+                                    {{ giftorder.user.zipcode }} {% if giftorder.user.zipcode %} &nbsp;{% endif %} {{ giftorder.user.city }}<br>
+                                  {% endif %}
+                                  {% if giftorder.user.country %}
+                                    {{ giftorder.user.country }}<br>
+                                  {% endif %}
+                                  {% if giftorder.user.phone %}
+                                    {{ giftorder.user.phone }}<br>
+                                  {% endif %}
+                                  </p>
                         </div>
                      <div class="panel-body">
                             <p> {% trans "Name on voucher" %}: {{ giftorder.voucher_from }} <br>
