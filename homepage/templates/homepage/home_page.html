@@ -19,8 +19,10 @@
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
 							<h1>{{ page.couplename }}</h1>
 							<h2>{{ page.subtitle }}</h2>
+                            {% if not global_preferences.general__postevent_mode %}
 							<h2><a href="{% url 'wedding:rsvp-update' %}" class="btn btn-primary btn-lg"><strong> &nbsp; RSVP &nbsp; </strong> </a></h2>
 							<div class="simply-countdown simply-countdown-one"></div>
+                            {% endif %}
 						</div>
 					</div>
 				</div>

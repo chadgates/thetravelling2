@@ -40,7 +40,9 @@
 <div class="row">
 
   <div class="col-sm-12">
+    {% if not global_preferences.general__postevent_mode %}
     <a class="btn btn-primary" href="{% url 'wedding:rsvp-update' %}" role="button">{% trans "Edit" %}</a>
+    {% endif %}
     <!-- Your Stuff: Custom user template urls -->
   </div>
 

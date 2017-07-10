@@ -40,7 +40,9 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-
+    'dynamic_preferences',  # storing settings in the DB
+    # comment the following line if you don't want to use user preferences
+    # 'dynamic_preferences.users.apps.UserPreferencesConfig',
 )
 
 # Apps specific for this project go here.
@@ -181,6 +183,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
+                'dynamic_preferences.processors.global_preferences',
             ],
         },
     },
@@ -284,3 +287,30 @@ NOCAPTCHA = True
 LOCALE_PATHS = [str(APPS_DIR.path('locale')),
                 str(APPS_DIR.path('projthetravelling').path('locale')),
                 str(APPS_DIR.path('wedding').path('locale'))]
+
+# available settings with their default values for dynamic-preferences
+DYNAMIC_PREFERENCES = {
+
+    # a python attribute that will be added to model instances with preferences
+    # override this if the default collide with one of your models attributes/fields
+    'MANAGER_ATTRIBUTE': 'preferences',
+
+    # The python module in which registered preferences will be searched within each app
+    'REGISTRY_MODULE': 'dynamic_preferences_registry',
+
+    # Allow quick editing of preferences directly in admin list view
+    # WARNING: enabling this feature can cause data corruption if multiple users
+    # use the same list view at the same time, see https://code.djangoproject.com/ticket/11313
+    'ADMIN_ENABLE_CHANGELIST_FORM': False,
+
+    # Customize how you can access preferences from managers. The default is to
+    # separate sections and keys with two underscores. This is probably not a settings you'll
+    # want to change, but it's here just in case
+    'SECTION_KEY_SEPARATOR': '__',
+
+    # Use this to disable caching of preference. This can be useful to debug things
+    'ENABLE_CACHE': True,
+
+    # Use this to disable checking preferences names. This can be useful to debug things
+    'VALIDATE_NAMES': True,
+}

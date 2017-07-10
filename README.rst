@@ -125,3 +125,9 @@ django-admin makemessages -l de -e html,txt,py
 
 homepage:
 django-admin makemessages -l de -e html,txt,py
+
+
+Using also
+^^^^^^^^^^
+
+http://django-dynamic-preferences.readthedocs.io
