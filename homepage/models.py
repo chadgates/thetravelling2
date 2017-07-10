@@ -17,7 +17,6 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 
 
-
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
 
@@ -100,6 +99,7 @@ class TimeLineEntryBlock(blocks.StructBlock):
         icon = 'placeholder'
         label = 'TimelineEntry'
 
+
 class TimeLineBlock(blocks.StructBlock):
     bg_gray = blocks.BooleanBlock(required=False, help_text="Select if background should by gray")
     headline = blocks.CharBlock()
@@ -113,6 +113,7 @@ class TimeLineBlock(blocks.StructBlock):
         template = 'homepage/couplestory_block.html'
         icon = 'placeholder'
         label = 'Timeline'
+
 
 class EventBlock(blocks.StructBlock):
     background = ImageChooserBlock()
@@ -129,11 +130,11 @@ class EventBlock(blocks.StructBlock):
     rightdate = blocks.CharBlock()
     righttext = blocks.TextBlock()
 
-
     class Meta:
         template = 'homepage/event_block.html'
         icon = 'placeholder'
         label = 'Event Block'
+
 
 class CoupleBlock(blocks.StructBlock):
     bg_gray = blocks.BooleanBlock(required=False, help_text="Select if background should by gray")
@@ -176,8 +177,8 @@ class TwoColumnBlock(blocks.StructBlock):
         ('theme-secondary', 'Secondary Color'),
     )
 
-
     background = blocks.ChoiceBlock(choices=COLOUR_CHOICES, default="white")
+
     left_column = blocks.StreamBlock([
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
@@ -219,8 +220,8 @@ class BlockPage(Page):
         StreamFieldPanel('body'),
     ]
 
-class HomePage(Page):
 
+class HomePage(Page):
     YEAR_CHOICES = (
         ('2017', '2017'),
         ('2018', '2018'),
@@ -364,7 +365,6 @@ class HomePage(Page):
         ('59', '59'),
     )
 
-
     background = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -397,12 +397,12 @@ class HomePage(Page):
         FieldPanel('couplename', classname="full"),
         FieldPanel('subtitle', classname="full"),
         FieldRowPanel([
-                    FieldPanel('year'),
-                    FieldPanel('month'),
-                    FieldPanel('day'),
-                    FieldPanel('hour'),
-                    FieldPanel('minute'),
-                    FieldPanel('seconds')
+            FieldPanel('year'),
+            FieldPanel('month'),
+            FieldPanel('day'),
+            FieldPanel('hour'),
+            FieldPanel('minute'),
+            FieldPanel('seconds')
         ]),
         ImageChooserPanel('background'),
         DocumentChooserPanel('icsfile'),
@@ -413,12 +413,12 @@ class HomePage(Page):
 class OurDayPage(Page):
     body = StreamField(
         [
-        ('MainTitle', MainTitleBlock()),
-        ('Paragraph', ParagraphBlock()),
-        ('Image', ImageBlock()),
-        ('TwoColumnBlock', TwoColumnBlock()),
-        ('EventBlock', EventBlock()),
-        ], default = "")
+            ('MainTitle', MainTitleBlock()),
+            ('Paragraph', ParagraphBlock()),
+            ('Image', ImageBlock()),
+            ('TwoColumnBlock', TwoColumnBlock()),
+            ('EventBlock', EventBlock()),
+        ], default="")
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
@@ -428,11 +428,11 @@ class OurDayPage(Page):
 class OurWishPage(Page):
     body = StreamField(
         [
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('TwoColumnBlock', TwoColumnBlock()),
-        ], default = "")
+            ('heading', blocks.CharBlock(classname="full title")),
+            ('paragraph', blocks.RichTextBlock()),
+            ('image', ImageChooserBlock()),
+            ('TwoColumnBlock', TwoColumnBlock()),
+        ], default="")
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
@@ -442,11 +442,11 @@ class OurWishPage(Page):
 class AccommodationPage(Page):
     body = StreamField(
         [
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('TwoColumnBlock', TwoColumnBlock()),
-        ], default = "")
+            ('heading', blocks.CharBlock(classname="full title")),
+            ('paragraph', blocks.RichTextBlock()),
+            ('image', ImageChooserBlock()),
+            ('TwoColumnBlock', TwoColumnBlock()),
+        ], default="")
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
@@ -456,11 +456,11 @@ class AccommodationPage(Page):
 class GoodToKnowPage(Page):
     body = StreamField(
         [
-        ('heading', blocks.CharBlock(classname="full title")),
-        ('paragraph', blocks.RichTextBlock()),
-        ('image', ImageChooserBlock()),
-        ('TwoColumnBlock', TwoColumnBlock()),
-        ], default = "")
+            ('heading', blocks.CharBlock(classname="full title")),
+            ('paragraph', blocks.RichTextBlock()),
+            ('image', ImageChooserBlock()),
+            ('TwoColumnBlock', TwoColumnBlock()),
+        ], default="")
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),

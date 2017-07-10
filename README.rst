@@ -131,3 +131,6 @@ Using also
 ^^^^^^^^^^
 
 http://django-dynamic-preferences.readthedocs.io
+
+The application may be set to th2 "post_event" state. Administrators can do this via the Django Admin in
+dynmamic preferences and set the 'postevent_mode' to True. Various menus will be hidden when the event has past.

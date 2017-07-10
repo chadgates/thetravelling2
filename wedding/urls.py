@@ -6,12 +6,6 @@ from wedding import views as wedding_views
 
 
 urlpatterns = [
-    # URL pattern for the RSVP Edit/Create
-#    url(
-#        regex=r'^rsvp/(?P<pk>[\w\-]+)/$',
-#        view=wedding_views.RsvpUpdate.as_view(),
-#        name='rsvp-update',
-#    ),
     # URL pattern for the RSVP Detail
     url(
         regex=r'^rsvps/(?P<username>[\w.@+-]+)/$',
@@ -48,14 +42,7 @@ urlpatterns = [
         view=wedding_views.GiftUpdate.as_view(),
         name='gift-update',
     ),
-    # URL pattern for the DeleteView
 
-    #url(
-    #    regex=r'^gift/(?P<pk>[\w\-]+)/delete/$',
-    #    view=wedding_views.GiftDelete.as_view(),
-    #    name='gift-delete',
-    #),
-    # URL pattern for the Listview
     url(
         regex=r'^gift/$',
         view=wedding_views.GiftList.as_view(),

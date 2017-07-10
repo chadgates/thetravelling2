@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
@@ -54,10 +53,10 @@ class Gift(TimeStampedModel):
     max_parts = models.PositiveIntegerField(verbose_name=_('Maximum number of parts'))
     taken_parts = models.PositiveIntegerField(verbose_name=_('Number of parts taken'), default=0)
     img = models.ImageField(blank=True, null=True)
-    img_catalog = ImageSpecField(source='img', processors=[ResizeToFit(800, 600), ResizeCanvas(800,600)],
+    img_catalog = ImageSpecField(source='img', processors=[ResizeToFit(800, 600), ResizeCanvas(800, 600)],
                                  format='JPEG', options={'quality': 60})
     img_miniature = ImageSpecField(source='img', processors=[ResizeToFill(60, 60)],
-                                 format='JPEG', options={'quality': 60})
+                                   format='JPEG', options={'quality': 60})
 
     def is_available(self):
         if self.taken_parts < self.max_parts:
@@ -80,7 +79,6 @@ class Gift(TimeStampedModel):
         permissions = (
             ("edit", "Can edit the Gift list"),
         )
-
 
 
 class GiftOrder(TimeStampedModel):

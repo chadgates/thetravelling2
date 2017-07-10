@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
-from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic.detail import SingleObjectTemplateResponseMixin
@@ -14,18 +13,18 @@ from django.contrib import messages
 from django.utils.translation import gettext as _
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum, F, DecimalField
-from django.shortcuts import redirect
+
 from decimal import Decimal
+
 
 # Source: http://stackoverflow.com/questions/17192737/django-class-based-view-for-both-create-and-update
 class CreateUpdateView(SingleObjectTemplateResponseMixin, ModelFormMixin,
-        ProcessFormView):
-
+                       ProcessFormView):
     template_name_suffix = '_form'
 
     def get_object(self, queryset=None):
         try:
-            return super(CreateUpdateView,self).get_object(queryset)
+            return super(CreateUpdateView, self).get_object(queryset)
         except AttributeError:
             return None
 
@@ -39,21 +38,19 @@ class CreateUpdateView(SingleObjectTemplateResponseMixin, ModelFormMixin,
 
 
 class RsvpUpdate(LoginRequiredMixin, UpdateView):
-
     model = Rsvp
     context_object_name = 'rsvp'
     slug_field = 'user'
     slug_url_kwarg = 'user'
-    #fields = [
+    # fields = [
     #    'will_attend',
     #    'guest2',
     #    'guest3',
     #    'guest4',
-    #]
+    # ]
     form_class = RsvpForm
 
     def get_object(self, queryset=None):
-
         # get the existing object or created a new one
         obj, created = Rsvp.objects.get_or_create(user=self.request.user)
 
@@ -65,7 +62,6 @@ class RsvpUpdate(LoginRequiredMixin, UpdateView):
 
 
 class RsvpDetail(LoginRequiredMixin, DetailView):
-
     model = Rsvp
     context_object_name = 'rsvp'
     form_class = RsvpForm
@@ -84,8 +80,8 @@ class RsvpList(PermissionRequiredMixin, ListView):
     model = Rsvp
     context_object_name = 'rsvp_list'
     form_class = RsvpForm
-    #slug_field = 'user'
-    #slug_url_kwarg = 'user'
+    # slug_field = 'user'
+    # slug_url_kwarg = 'user'
 
 
 class GiftViewMixin(object):
@@ -102,33 +98,31 @@ class GiftViewMixin(object):
         return super(GiftViewMixin, self).form_valid(form)
 
 
-
 class GiftList(ListView):
-
     context_object_name = 'gifts'
 
     def get_queryset(self):
         return Gift.objects.all().extra(
-                    select = {'cart_quantity': """
+            select={'cart_quantity': """
                     SELECT SUM(quantity) FROM wedding_cartitem
                     WHERE wedding_cartitem.user_id = %s AND wedding_cartitem.gift_id = wedding_gift.id 
                     GROUP BY wedding_cartitem.gift_id
                     """
                     },
-                select_params = (self.request.user.id,)).extra(
-                    select={'total_taken': """
+            select_params=(self.request.user.id,)).extra(
+            select={'total_taken': """
                     SELECT SUM(quantity) + wedding_gift.taken_parts FROM wedding_cartitem 
                     WHERE wedding_cartitem.user_id = %s AND wedding_cartitem.gift_id = wedding_gift.id 
                     GROUP BY wedding_cartitem.gift_id
                     """},
-                select_params = (self.request.user.id,)).extra(
-                    select={'total_available': """
+            select_params=(self.request.user.id,)).extra(
+            select={'total_available': """
                     SELECT wedding_gift.max_parts - SUM(quantity) - wedding_gift.taken_parts FROM wedding_cartitem 
                     WHERE wedding_cartitem.user_id = %s AND wedding_cartitem.gift_id = wedding_gift.id 
                     GROUP BY wedding_cartitem.gift_id
                     """},
-                    select_params=(self.request.user.id,)
-                )
+            select_params=(self.request.user.id,)
+        )
 
 
 class GiftDetail(DetailView):
@@ -147,6 +141,7 @@ class GiftCreate(GiftViewMixin, CreateView):
               'taken_parts',
               'img']
 
+
 class GiftUpdate(GiftViewMixin, UpdateView):
     success_msg = _("Saved")
     fields = ['name',
@@ -158,26 +153,25 @@ class GiftUpdate(GiftViewMixin, UpdateView):
               'taken_parts',
               'img']
 
+
 class GiftDelete(GiftViewMixin, DeleteView):
     success_msg = _("Deleted")
     success_url = reverse_lazy('wedding:gift-list')
 
 
-
 class CartItemList(LoginRequiredMixin, ListView):
-    #model = CartItem
     context_object_name = 'cartitems'
-
 
     def get_queryset(self):
         return CartItem.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super(CartItemList, self).get_context_data(**kwargs)
-        context['carttotal'] = CartItem.objects.filter(user=self.request.user).aggregate(total_price=Sum(F('quantity') * F('gift__price'), output_field=DecimalField()))['total_price']
-
+        context['carttotal'] = CartItem.objects.filter(user=self.request.user).aggregate(
+            total_price=Sum(F('quantity') * F('gift__price'), output_field=DecimalField()))['total_price']
 
         return context
+
 
 class CartItemDetail(LoginRequiredMixin, DetailView):
     model = CartItem
@@ -197,10 +191,12 @@ class CartItemCreate(LoginRequiredMixin, GiftViewMixin, CreateView):
         response = super(CartItemCreate, self).form_invalid(form)
         return response
 
+
 class CartItemUpdate(LoginRequiredMixin, GiftViewMixin, UpdateView):
     success_msg = _("Saved")
     fields = ['quantity',
               ]
+
 
 class CartItemDelete(LoginRequiredMixin, GiftViewMixin, DeleteView):
     model = CartItem
@@ -239,7 +235,8 @@ class GiftOrderCreate(LoginRequiredMixin, GiftViewMixin, CreateView):
         form.save_m2m()
 
         for item in mycart:
-            newitem = GiftOrderItem(gift=item.gift, quantity=item.quantity, giftorder=new_giftorder, price=item.gift.price)
+            newitem = GiftOrderItem(gift=item.gift, quantity=item.quantity, giftorder=new_giftorder,
+                                    price=item.gift.price)
             newitem.save()
             gift = Gift.objects.get(id=item.gift.id)
             gift.taken_parts += item.quantity
@@ -251,7 +248,6 @@ class GiftOrderCreate(LoginRequiredMixin, GiftViewMixin, CreateView):
 
 
 class GiftOrderList(LoginRequiredMixin, ListView):
-
     context_object_name = 'giftorders'
 
     def get_queryset(self):
@@ -263,7 +259,6 @@ class OrderStatusList(PermissionRequiredMixin, ListView):
     context_object_name = 'giftorders'
     model = GiftOrderStatus
 
-
     def get_queryset(self):
         # Fetch the queryset from the parent get_queryset
         queryset = super(OrderStatusList, self).get_queryset()
@@ -273,15 +268,15 @@ class OrderStatusList(PermissionRequiredMixin, ListView):
 
         if sel_payment in ('received', 'open'):
             sel_payment = (sel_payment == 'received')
-            queryset = queryset.filter(payment_received = sel_payment)
+            queryset = queryset.filter(payment_received=sel_payment)
 
         if sel_voucher in ('issued', 'pending'):
-            sel_voucher = ( sel_voucher == 'issued')
-            queryset = queryset.filter(voucher_issued = sel_voucher)
+            sel_voucher = (sel_voucher == 'issued')
+            queryset = queryset.filter(voucher_issued=sel_voucher)
 
         if sel_direct in ('send direct', 'send to user'):
             sel_direct = (sel_direct == 'send direct')
-            queryset = queryset.filter(voucher_senddirect = sel_direct)
+            queryset = queryset.filter(voucher_senddirect=sel_direct)
 
         return queryset.order_by('-created')
 
